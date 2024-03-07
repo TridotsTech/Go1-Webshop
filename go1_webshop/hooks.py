@@ -4,11 +4,9 @@ app_publisher = "tridotstech"
 app_description = "Ecommerce app"
 app_email = "info@tridotstech.com"
 app_license = "mit"
-# required_apps = []
-
+required_apps = ["erpnext","webshop","builder"]
 # Includes in <head>
 # ------------------
-
 # include js, css files in header of desk.html
 # app_include_css = "/assets/go1_webshop/css/go1_webshop.css"
 # app_include_js = "/assets/go1_webshop/js/go1_webshop.js"
@@ -32,7 +30,20 @@ app_license = "mit"
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
+override_doctype_class = {
+    "Builder Page": "go1_webshop.go1_webshop.doctype.override_doctype.builder_page.BuilderPage",
+}
 
+fixtures = [
+    {
+        "doctype": "Custom Field",
+        "filters": [
+            ["name", "in", (
+                "Builder Settings-custom_server_script"
+            )]
+        ]
+    }
+]
 # Svg Icons
 # ------------------
 # include app icons in desk
@@ -69,7 +80,7 @@ app_license = "mit"
 
 # before_install = "go1_webshop.install.before_install"
 # after_install = "go1_webshop.install.after_install"
-
+after_install = "go1_webshop.go1_webshop.after_install.after_install"
 # Uninstallation
 # ------------
 
