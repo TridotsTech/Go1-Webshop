@@ -1,6 +1,7 @@
 ## Go1 Webshop
 
 Go1 Webshop is an Open Source eCommerce portal built using frappe builder.
+
 ![Go1 Webshop](go1_webshop.png)
 
 ## Installation
@@ -17,14 +18,11 @@ Go1 Webshop is an Open Source eCommerce portal built using frappe builder.
     ```sh
     $ bench --site sitename install-app go1_webshop
     ```
-    ```    
 7. Enable the server by running
     
      ```sh
     $ bench set-config -g server_script_enabled 1
     ```
-    ```   
-    
 
 #### Go1 Webshop Page
 
@@ -32,7 +30,7 @@ To get Go1 Webshop pages follow the following steps
 
 1. Go to Go1 Webshop Settings
 2. In Settings, you have an option import pages.By clicking Import Pages button you will have the ecommerce pages with sample data.
-3. After importing the pages , need to execute command
+3. After importing the pages , need to execute command for restting the routes
      ```sh
     $ bench --site sitename clear-cache
     ```
