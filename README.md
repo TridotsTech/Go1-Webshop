@@ -1,6 +1,6 @@
 ## Go1 Webshop
 
-Go1 Webshop is an Open Source eCommerce portal built using frappe builder.
+Go1 Webshop is an Open Source eCommerce portal built on frappe builder.
 
 ![Go1 Webshop](go1_webshop.png)
 

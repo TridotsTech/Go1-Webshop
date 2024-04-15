@@ -1,0 +1,260 @@
+[
+{
+    "item_group_name": "Furnishing & Decor",
+    "parent_item_group": "All Item Groups",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "furnishing-decor",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Sofas & Seating",
+    "parent_item_group": "All Item Groups",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "sofas-seating",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Mattresses",
+    "parent_item_group": "All Item Groups",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "mattresses",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Home Decor",
+    "parent_item_group": "All Item Groups",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "home-decor",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Furnishings",
+    "parent_item_group": "All Item Groups",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "furnishings",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Kitchen & Dining",
+    "parent_item_group": "All Item Groups",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "kitchen-dining",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Lamps & Lighting",
+    "parent_item_group": "All Item Groups",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "lamps-lighting",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Modular",
+    "parent_item_group": "All Item Groups",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "modular",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Bed Linen",
+    "parent_item_group": "Furnishing & Decor",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "bed-linen",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Bath linen",
+    "parent_item_group": "Furnishing & Decor",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "bath-linen",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Cushion & Covers",
+    "parent_item_group": "Furnishing & Decor",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "cushion-covers",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Flooring",
+    "parent_item_group": "Furnishing & Decor",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "flooring",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Kitchen and Table Linen",
+    "parent_item_group": "Furnishing & Decor",
+    "is_group": 1,
+    "show_in_website": 1,
+    "route": "kitchen-and-table-linen",
+    "include_descendants": 0,
+    "weightage": 0,
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_fields": []
+
+},
+{
+    "item_group_name": "Sofas",
+    "parent_item_group": "Sofas & Seating",
+    "is_group": 0,
+    "show_in_website": 1,
+    "route": "sofas",
+    "include_descendants": 0,
+    "weightage": 0,
+    "old_parent": "Sofas & Seating",
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_attributes": []
+
+},
+{
+    "item_group_name": "Sectional Sofas",
+    "parent_item_group": "Sofas & Seating",
+    "is_group": 0,
+    "show_in_website": 1,
+    "route": "sectional-sofas",
+    "include_descendants": 0,
+    "weightage": 0,
+    "old_parent": "Sofas & Seating",
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_attributes": []
+
+},
+{
+    "item_group_name": "Sofa Cum Beds",
+    "parent_item_group": "Sofas & Seating",
+    "is_group": 0,
+    "show_in_website": 1,
+    "route": "sofa-cum-beds",
+    "include_descendants": 0,
+    "weightage": 0,
+    "old_parent": "Sofas & Seating",
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_attributes": []
+
+},
+{
+    "item_group_name": "Futons",
+    "parent_item_group": "Sofas & Seating",
+    "is_group": 0,
+    "show_in_website": 1,
+    "route": "futons",
+    "include_descendants": 0,
+    "weightage": 0,
+    "old_parent": "Sofas & Seating",
+    "doctype": "Item Group",
+    "taxes": [],
+    "item_group_defaults": [],
+    "website_specifications": [],
+    "filter_attributes": []
+
+}]

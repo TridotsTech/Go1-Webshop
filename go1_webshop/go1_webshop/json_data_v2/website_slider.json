@@ -1,0 +1,52 @@
+[{
+    "slideshow_name": "Landing Page",
+    "doctype": "Website Slideshow",
+    "slideshow_items": [
+        {
+            "name": "e82a3e1c8b",
+            "owner": "Administrator",
+            "creation": "2024-02-22 19:38:57.347612",
+            "modified": "2024-03-01 21:47:56.689609",
+            "modified_by": "Administrator",
+            "docstatus": 0,
+            "idx": 1,
+            "image": "/files/slider3.png",
+            "url": "/products/mattresses",
+            "parent": "Landing Page",
+            "parentfield": "slideshow_items",
+            "parenttype": "Website Slideshow",
+            "doctype": "Website Slideshow Item"
+        },
+        {
+            "name": "4094a17a9f",
+            "owner": "Administrator",
+            "creation": "2024-02-22 19:38:57.347612",
+            "modified": "2024-03-01 21:47:56.689609",
+            "modified_by": "Administrator",
+            "docstatus": 0,
+            "idx": 2,
+            "image": "/files/slider1.png",
+            "url": "/products/sofas-seating",
+            "parent": "Landing Page",
+            "parentfield": "slideshow_items",
+            "parenttype": "Website Slideshow",
+            "doctype": "Website Slideshow Item"
+        },
+        {
+            "name": "487623e3be",
+            "owner": "Administrator",
+            "creation": "2024-02-22 19:38:57.347612",
+            "modified": "2024-03-01 21:47:56.689609",
+            "modified_by": "Administrator",
+            "docstatus": 0,
+            "idx": 3,
+            "image": "/files/slider2.png",
+            "url": "/products/furnishing-decor",
+            "parent": "Landing Page",
+            "parentfield": "slideshow_items",
+            "parenttype": "Website Slideshow",
+            "doctype": "Website Slideshow Item"
+        }
+    ],
+    "__last_sync_on": "2024-03-06T10:42:08.928Z"
+}]

@@ -3,6 +3,7 @@ import json
 import os
 import zipfile
 from frappe.utils import encode, get_files_path
+
 def after_install():
 	unzip_builder_images()
 	insert_custom_fields()
@@ -42,6 +43,7 @@ def insert_all_script_data():
 	
 def insert_all_pages():
 	file_name = "builder_pages.json"
+
 	read_page_module_path(file_name)
 	webshop_settings = frappe.get_single("Webshop Settings")
 	webshop_settings.products_per_page = 20
@@ -73,7 +75,7 @@ def insert_item_groups():
 def insert_custom_fields():
 	file_name = "custom_fields.json"
 	path = frappe.get_module_path("go1_webshop")
-	file_path = os.path.join(path,'json_data',file_name)
+	file_path = os.path.join(path,'json_data_v2',file_name)
 	if os.path.exists(file_path):
 		with open(file_path, 'r') as f:
 			out = json.load(f)
@@ -89,7 +91,7 @@ def insert_custom_fields():
 
 def read_module_path(file_name):
 	path = frappe.get_module_path("go1_webshop")
-	file_path = os.path.join(path,'json_data',file_name)
+	file_path = os.path.join(path,'json_data_v2',file_name)
 	if os.path.exists(file_path):
 		with open(file_path, 'r') as f:
 			out = json.load(f)
@@ -104,7 +106,7 @@ def read_module_path(file_name):
 
 def insert_mobile_menu_data(file_name):
 	path = frappe.get_module_path("go1_webshop")
-	file_path = os.path.join(path,'json_data',file_name)
+	file_path = os.path.join(path,'json_data_v2',file_name)
 	if os.path.exists(file_path):
 		with open(file_path, 'r') as f:
 			out = json.load(f)
@@ -119,7 +121,7 @@ def insert_mobile_menu_data(file_name):
     
 def insert_component_data(file_name):
 	path = frappe.get_module_path("go1_webshop")
-	file_path = os.path.join(path,'json_data',file_name)
+	file_path = os.path.join(path,'json_data_v2',file_name)
 	if os.path.exists(file_path):
 		with open(file_path, 'r') as f:
 			out = json.load(f)
@@ -132,9 +134,10 @@ def insert_component_data(file_name):
 			except Exception as e:
 				frappe.log_error(frappe.get_traceback(), file_name)
 	
+@frappe.whitelist(allow_guest=True)
 def insert_item_data(file_name):
 	path = frappe.get_module_path("go1_webshop")
-	file_path = os.path.join(path,'json_data',file_name)
+	file_path = os.path.join(path,'json_data_v2',file_name)
 	if os.path.exists(file_path):
 		with open(file_path, 'r') as f:
 			out = json.load(f)
@@ -142,13 +145,22 @@ def insert_item_data(file_name):
 		warehouse = None
 		for i in out:
 			try:
-				# frappe.log_error(frappe.db.exists({"doctype": i.get('doctype'), "item_name": i.get('item_name')}))
-				if(not frappe.db.exists({"doctype": i.get('doctype'), "item_name": i.get('item_name')})):
+				if frappe.db.exists({"doctype": i.get('doctype'), "name": i.get('name')}):
+					existing_doc = frappe.get_doc(i.get('doctype'), i.get('name'))
+					if existing_doc:
+						existing_doc.update(i)
+						existing_doc.save(ignore_permissions=True)
+						frappe.db.commit()
+						existing_doc.reload()
+
+				if not frappe.db.exists({"doctype": i.get('doctype'), "item_name": i.get('item_name')}):
 					if i.get('doctype')=="Website Item":
 						company = frappe.db.get_all("Company",fields=['abbr'])
 						if company:
 							i["website_warehouse"] = "Stores - "+company[0].abbr
 							warehouse = "Stores - "+company[0].abbr
+					if "india_compliance" in frappe.get_installed_apps() and i.get('doctype')=="Item":
+						i["gst_hsn_code"]= "999900"
 					frappe.get_doc(i).insert()
 					if i.get('doctype')=="Website Item":
 						price_doc = frappe.new_doc("Item Price")
@@ -158,6 +170,8 @@ def insert_item_data(file_name):
 						price_doc.price_list_rate=5000
 						price_doc.save(ignore_permissions=True)
 						item_codes.append(i.get("item_code"))
+				
+
 			except frappe.NameError:
 				pass
 			except Exception as e:
@@ -177,7 +191,7 @@ def insert_item_data(file_name):
 
 def insert_item_groups_data(file_name):
 	path = frappe.get_module_path("go1_webshop")
-	file_path = os.path.join(path,'json_data',file_name)
+	file_path = os.path.join(path,'json_data_v2',file_name)
 	if os.path.exists(file_path):
 		with open(file_path, 'r') as f:
 			out = json.load(f)
@@ -205,7 +219,7 @@ def unzip_builder_images():
 				# skip hidden files
 				continue
 			origin = get_files_path()
-			item_file_path = os.path.join(origin, file.filename.split("/")[1])
+			item_file_path = os.path.join(origin, file.filename)
 			if not os.path.exists(item_file_path):
 				file_doc = frappe.new_doc("File")
 				file_doc.content = z.read(file.filename)
@@ -216,7 +230,7 @@ def unzip_builder_images():
 
 def read_page_module_path(file_name):
 	path = frappe.get_module_path("go1_webshop")
-	file_path = os.path.join(path,'json_data',file_name)
+	file_path = os.path.join(path,'json_data_v2',file_name)
 	if os.path.exists(file_path):
 		with open(file_path, 'r') as f:
 			out = json.load(f)
@@ -225,13 +239,13 @@ def read_page_module_path(file_name):
 			try:
 				if i.get('client_scripts') :
 					out_json[i.get('page_title')] = i['client_scripts']
-					del i['client_scripts']					
+					del i['client_scripts']
 				if(not frappe.db.exists({"doctype": i.get('doctype'), "page_title": i.get('page_title')})):
 					page_doc = frappe.get_doc(i).insert()
 					frappe.db.set_value(i.get('doctype'), page_doc.get('name'), 'route', i.get('route'))
 					# frappe.log_error(title="out_json[index]", message=out_json)
 					if(out_json[i.get('page_title')]):
-						for child_index,script in enumerate(out_json[i.get('page_title')]):
+						for child_index,script in enumerate(out_json[i.get('page_title')]): 
 							# frappe.log_error(title="queryyyy", message=f"""INSERT INTO `tabBuilder Page Client Script` (name,builder_script,parent,parentfield,parenttype)
 							# VALUES ('{script.get('builder_script')}','{script.get('builder_script')}','{page_doc.name}','client_scripts','Builder Page') """)
 							frappe.db.sql(f"""INSERT INTO `tabBuilder Page Client Script` (name,builder_script,parent,parentfield,parenttype)
@@ -241,7 +255,7 @@ def read_page_module_path(file_name):
 		frappe.db.set_value("Website Settings","Website Settings","home_page","f-landing")
 def read_script_module_path(file_name):
 	path = frappe.get_module_path("go1_webshop")
-	file_path = os.path.join(path,'json_data',file_name)
+	file_path = os.path.join(path,'json_data_v2',file_name)
 	if os.path.exists(file_path):
 		with open(file_path, 'r') as f:
 			out = json.load(f)
@@ -258,7 +272,7 @@ def read_script_module_path(file_name):
 	
 def read_builder_settings_module_path(file_name):
 	path = frappe.get_module_path("go1_webshop")
-	file_path = os.path.join(path,'json_data',file_name)
+	file_path = os.path.join(path,'json_data_v2',file_name)
 	if os.path.exists(file_path):
 		out = ''
 		with open(file_path, 'r') as f:

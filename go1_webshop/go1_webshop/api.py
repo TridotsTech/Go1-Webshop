@@ -1,3 +1,4 @@
+from frappe import _
 import frappe
 
 def currency(amount):
@@ -67,7 +68,6 @@ def check_items_quantity(items):
 	except Exception:
 		frappe.log_error(title="go1_webshop.go1_webshop.api.check_items_quantity",message="")
 
-from frappe import _
 @frappe.whitelist(allow_guest=True)
 def update_user(doc):
 	frappe.log_error("doc['last_Name']",doc["last_Name"])
@@ -76,28 +76,30 @@ def update_user(doc):
 
 @frappe.whitelist(allow_guest=True)
 def insert_doc(**data):
-	try:
-		user = ""
-		if data.get('data').get('doctype') == "Comment":
-			user = frappe.session.user
-			data['data']['comment_by'] = user
-		if data.get('data').get('name'):
-			insert_doc = frappe.get_doc(data.get('data').get('doctype'),data.get('data').get('name'))
-			insert_doc.update(data.get('data'))
-			value = insert_doc.save(ignore_permissions=True)
-			frappe.db.commit()
-			return value
-		if data:
-			insert_doc = frappe.get_doc({"doctype":data.get('data').get('doctype')})
-			insert_doc.update(data.get('data'))
-			value = insert_doc.insert(ignore_permissions=True)
-			frappe.db.commit()
-			return value
-			# frappe.response['status'] = 'success'
-	except Exception:
-		frappe.response['status'] = 'failed'
-		frappe.response['message'] = 'insert doc details failed'
-		frappe.log_error("go1_webshop.go1_webshop.api.insert_doc_data",frappe.get_traceback())
+    try:
+        user = ""
+        if data.get('data').get('doctype') == "Comment":
+            user = frappe.session.user
+            data['data']['comment_by'] = user
+        
+        if data:
+            insert_doc = frappe.get_doc({"doctype": data.get('data').get('doctype')})
+            insert_doc.update(data.get('data'))
+            value = insert_doc.insert(ignore_permissions=True)
+            frappe.db.commit()
+            return value
+    except Exception as e:
+        frappe.log_error("Error inserting document: " + str(e))
+        return None
+
+@frappe.whitelist(allow_guest=True)
+def check_user_exists(email, password):
+    try:
+        user_exists = frappe.db.exists("User", {"email": email, "password": password})
+        return {"exists": user_exists}
+    except Exception as e:
+        frappe.log_error("Error checking user existence: {0}".format(str(e)))
+        return {"error": "An error occurred while checking user existence"}
 
 @frappe.whitelist(allow_guest=True)
 def get_list(doctype,fields=["name"],filters=None,page_no=1,page_size=20,order_by="creation desc",child_fields=None):
