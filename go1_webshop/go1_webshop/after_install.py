@@ -21,7 +21,7 @@ def insert_pages():
 	insert_all_pages()
 	insert_item_groups()
 	insert_item()
-	insert_website_item()
+	insert_website_item() 
 	insert_mobile_menu()
 	return 'success'
 
@@ -145,13 +145,14 @@ def insert_item_data(file_name):
 		warehouse = None
 		for i in out:
 			try:
-				if frappe.db.exists({"doctype": i.get('doctype'), "name": i.get('name')}):
-					existing_doc = frappe.get_doc(i.get('doctype'), i.get('name'))
-					if existing_doc:
-						existing_doc.update(i)
-						existing_doc.save(ignore_permissions=True)
-						frappe.db.commit()
-						existing_doc.reload()
+				# if frappe.db.exists({"doctype": i.get('doctype'), "name": i.get('name')}):
+				# 	existing_doc = frappe.get_doc(i.get('doctype'), i.get('name'))
+				# 	if existing_doc:
+				# 		existing_doc.update(i)
+				# 		existing_doc.save(ignore_permissions=True)
+				# 		frappe.db.commit()
+				# 		existing_doc.reload()
+				# 		break
 
 				if not frappe.db.exists({"doctype": i.get('doctype'), "item_name": i.get('item_name')}):
 					if i.get('doctype')=="Website Item":

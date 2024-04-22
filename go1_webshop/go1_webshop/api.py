@@ -111,7 +111,7 @@ def get_list(doctype,fields=["name"],filters=None,page_no=1,page_size=20,order_b
 		order_by=order_by,
 		start=limit_start,
 		page_length=page_size,
-		)
+		) 
 		if child_fields and len(child_fields):
 			for item in list_items:
 				for child in child_fields:
