@@ -6,7 +6,7 @@ import json
 from frappe.model.document import Document
 from webshop.webshop.doctype.override_doctype.item_group import WebshopItemGroup
 # from webshop.webshop.api import get_product_filter_data
-from go1_builder.go1_builder.api import get_product_filter_data
+from go1_webshop.go1_webshop.api import get_product_filter_data
 class ErpSettings(Document):
     def get_item_list(self,item_group,attribute_filters,sort_by=None,start=None):
         try:                  
