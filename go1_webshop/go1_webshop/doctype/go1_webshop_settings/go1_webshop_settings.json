@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-05 17:56:40.216322",
+ "default_view": "List",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_auqx",
+  "import_all_pages",
+  "selected_theme"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_auqx",
+   "fieldtype": "Section Break",
+   "label": "Pages"
+  },
+  {
+   "fieldname": "import_all_pages",
+   "fieldtype": "Button",
+   "label": "Import All Pages"
+  },
+  {
+   "fieldname": "selected_theme",
+   "fieldtype": "Data",
+   "label": "Selected Theme"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-06-27 11:20:38.437206",
+ "modified_by": "Administrator",
+ "module": "Go1 Webshop",
+ "name": "Go1 Webshop Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

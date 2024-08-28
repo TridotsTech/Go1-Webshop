@@ -1,0 +1,806 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:theme_name",
+ "creation": "2024-06-26 19:46:12.217974",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_uive",
+  "theme_name",
+  "theme_image",
+  "theme_route",
+  "common_settings_tab",
+  "primary_color",
+  "column_break_m4qy",
+  "secondary_color",
+  "column_break_ngl9",
+  "text_color",
+  "product_info_section",
+  "product_cards_count",
+  "description_font_size",
+  "description_color",
+  "column_break_cdsi",
+  "product_card_background_color",
+  "price_amount_color",
+  "price_amount_size",
+  "product_title_color",
+  "column_break_xndd",
+  "product_image_size",
+  "offer_style",
+  "header_settings_tab",
+  "announcement_bar_section",
+  "enable_announcement_bar",
+  "background",
+  "top_bar_padding",
+  "column_break_rnuv",
+  "announce_text_color",
+  "text_size",
+  "column_break_akx2",
+  "is_dismissible",
+  "header_width",
+  "header_settings_section",
+  "header_background",
+  "header_padding",
+  "column_break_slbn",
+  "logo_height",
+  "sticky_header",
+  "is_shadow",
+  "header_shadow",
+  "sticky_header_background",
+  "is_transparent_header",
+  "column_break_emjh",
+  "enable_header_border",
+  "header_border_color",
+  "header_text_color",
+  "web_menu_settings_section",
+  "font_family",
+  "line_height",
+  "menu_hover_color",
+  "dropdown_background_color",
+  "dropdown_menu_hover_color",
+  "column_break_bboq",
+  "font_weight_web",
+  "letter_spacing_web",
+  "menu_background_color",
+  "menu_item_spacing_web",
+  "dropdown_menu_color",
+  "column_break_70m0",
+  "font_size_web",
+  "menu_text_color",
+  "menu_alignment",
+  "dropdown_menu_hover_background_color",
+  "apply_box_shadow",
+  "dropdown_menu_box_shadow",
+  "mobile_menu_section",
+  "mobile_logo_height",
+  "font_weight",
+  "letter_spacing",
+  "menu_padding",
+  "back_button_margin",
+  "column_break_ofmt",
+  "mobile_menu_background",
+  "font_size",
+  "color",
+  "back_button_text_color",
+  "column_break_bt69",
+  "font_family_mob",
+  "line_height_mob",
+  "hover_color",
+  "back_button_background",
+  "footer_settings_tab",
+  "design_section",
+  "footer_bg_color",
+  "background_image",
+  "column_break_nkpd",
+  "link_color",
+  "column_break_cxax",
+  "link_hover_color",
+  "footer_tile_style_section",
+  "footer_font_family",
+  "footer_line_height",
+  "column_break_mlr7",
+  "footer_font_weight",
+  "footer_letter_spacing",
+  "column_break_wav1",
+  "footer_font_size",
+  "footer_text_color",
+  "footer_text_style_section",
+  "ft_font_family",
+  "ft_line_height",
+  "column_break_mp7o",
+  "ft_font_weight",
+  "ft_letter_spacing",
+  "column_break_hq1c",
+  "ft_font_size",
+  "ft_text_color",
+  "copyright_section",
+  "enable_copyright",
+  "copyright_content",
+  "copyright_content_style_section",
+  "cr_font_size",
+  "enable_footer_border",
+  "footer_border_color",
+  "cr_vertical_padding",
+  "column_break_2ctp",
+  "cr_background_color",
+  "cr_text_color",
+  "column_break_ckph",
+  "cr_link_color",
+  "cr_link_hover_color"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_uive",
+   "fieldtype": "Tab Break",
+   "label": "Theme Settings"
+  },
+  {
+   "fieldname": "theme_name",
+   "fieldtype": "Data",
+   "label": "Theme Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "theme_image",
+   "fieldtype": "Attach",
+   "label": "Theme Image"
+  },
+  {
+   "fieldname": "theme_route",
+   "fieldtype": "Data",
+   "label": "Theme Route"
+  },
+  {
+   "fieldname": "common_settings_tab",
+   "fieldtype": "Tab Break",
+   "label": "Common Settings"
+  },
+  {
+   "fieldname": "primary_color",
+   "fieldtype": "Color",
+   "label": "Primary Color"
+  },
+  {
+   "fieldname": "column_break_m4qy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "secondary_color",
+   "fieldtype": "Color",
+   "label": "Secondary Color"
+  },
+  {
+   "fieldname": "column_break_ngl9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "text_color",
+   "fieldtype": "Color",
+   "label": "Text Color"
+  },
+  {
+   "fieldname": "product_info_section",
+   "fieldtype": "Section Break",
+   "label": "Product Info"
+  },
+  {
+   "description": "to showcase how many product cards can be displayed.",
+   "fieldname": "product_cards_count",
+   "fieldtype": "Select",
+   "label": "Product Cards Count",
+   "options": "3\n4\n5\n6"
+  },
+  {
+   "fieldname": "description_font_size",
+   "fieldtype": "Data",
+   "label": "Description Font Size"
+  },
+  {
+   "fieldname": "description_color",
+   "fieldtype": "Color",
+   "label": "Description Color"
+  },
+  {
+   "fieldname": "column_break_cdsi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "product_card_background_color",
+   "fieldtype": "Color",
+   "label": "Product Card Background Color"
+  },
+  {
+   "fieldname": "price_amount_color",
+   "fieldtype": "Color",
+   "label": "Price Amount Color"
+  },
+  {
+   "fieldname": "price_amount_size",
+   "fieldtype": "Data",
+   "label": "Price Amount Size"
+  },
+  {
+   "fieldname": "product_title_color",
+   "fieldtype": "Color",
+   "label": "Product Title Color"
+  },
+  {
+   "fieldname": "column_break_xndd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "product_image_size",
+   "fieldtype": "Data",
+   "label": "Product Image Size"
+  },
+  {
+   "fieldname": "offer_style",
+   "fieldtype": "Select",
+   "label": "Offer Style",
+   "options": "Band\nTag"
+  },
+  {
+   "fieldname": "header_settings_tab",
+   "fieldtype": "Tab Break",
+   "label": "Header Settings"
+  },
+  {
+   "fieldname": "announcement_bar_section",
+   "fieldtype": "Section Break",
+   "label": "Announcement Bar"
+  },
+  {
+   "default": "0",
+   "description": "Enable a top bar above the header.",
+   "fieldname": "enable_announcement_bar",
+   "fieldtype": "Check",
+   "label": "Enable Announcement Bar"
+  },
+  {
+   "depends_on": "eval:doc.enable_announcement_bar == 1",
+   "description": "Set the background for top banner.",
+   "fieldname": "background",
+   "fieldtype": "Color",
+   "label": "Background"
+  },
+  {
+   "depends_on": "eval:doc.enable_announcement_bar == 1",
+   "description": "Set the top/bottom spacing for top banner.",
+   "fieldname": "top_bar_padding",
+   "fieldtype": "Data",
+   "label": "Top Bar Padding"
+  },
+  {
+   "fieldname": "column_break_rnuv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.enable_announcement_bar == 1",
+   "description": "Set the text color for top banner.",
+   "fieldname": "announce_text_color",
+   "fieldtype": "Color",
+   "label": "Text Color"
+  },
+  {
+   "depends_on": "eval:doc.enable_announcement_bar == 1",
+   "description": "Set the text size for top banner.",
+   "fieldname": "text_size",
+   "fieldtype": "Data",
+   "label": "Text Size"
+  },
+  {
+   "fieldname": "column_break_akx2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.enable_announcement_bar == 1",
+   "description": "Allow users to dismiss the banner using a close button.",
+   "fieldname": "is_dismissible",
+   "fieldtype": "Check",
+   "label": "Is Dismissible"
+  },
+  {
+   "fieldname": "header_width",
+   "fieldtype": "Data",
+   "label": "Header Width"
+  },
+  {
+   "fieldname": "header_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Header Settings"
+  },
+  {
+   "description": "Set the header background.",
+   "fieldname": "header_background",
+   "fieldtype": "Color",
+   "label": "Header Background"
+  },
+  {
+   "description": "Set top/bottom spacing for header bar.",
+   "fieldname": "header_padding",
+   "fieldtype": "Data",
+   "label": "Header Padding"
+  },
+  {
+   "fieldname": "column_break_slbn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Set the header logo height.",
+   "fieldname": "logo_height",
+   "fieldtype": "Data",
+   "label": "Logo Height"
+  },
+  {
+   "default": "0",
+   "description": "Set the header to fixed on top after scroll.",
+   "fieldname": "sticky_header",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Sticky Header?"
+  },
+  {
+   "default": "0",
+   "description": "Add a box shadow on the header.",
+   "fieldname": "is_shadow",
+   "fieldtype": "Check",
+   "label": "Header Shadow?"
+  },
+  {
+   "depends_on": "eval:doc.is_shadow==1",
+   "fieldname": "header_shadow",
+   "fieldtype": "Data",
+   "label": "Header Shadow"
+  },
+  {
+   "depends_on": "eval:doc.sticky_header==1",
+   "fieldname": "sticky_header_background",
+   "fieldtype": "Color",
+   "label": "Sticky Header Background"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_transparent_header",
+   "fieldtype": "Check",
+   "label": "Is Transparent Header?"
+  },
+  {
+   "fieldname": "column_break_emjh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Set a 1px border bottom to header.",
+   "fieldname": "enable_header_border",
+   "fieldtype": "Check",
+   "label": "Enable Header Border"
+  },
+  {
+   "depends_on": "eval:doc.enable_header_border==1",
+   "description": "Set the header border color.",
+   "fieldname": "header_border_color",
+   "fieldtype": "Color",
+   "label": "Header Border Color"
+  },
+  {
+   "fieldname": "header_text_color",
+   "fieldtype": "Color",
+   "label": "Header Text Color"
+  },
+  {
+   "fieldname": "web_menu_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Web Menu Settings"
+  },
+  {
+   "fieldname": "font_family",
+   "fieldtype": "Data",
+   "label": "Font Family"
+  },
+  {
+   "fieldname": "line_height",
+   "fieldtype": "Data",
+   "label": "Line Height"
+  },
+  {
+   "fieldname": "menu_hover_color",
+   "fieldtype": "Color",
+   "label": "Menu Hover Color"
+  },
+  {
+   "description": "Set the dropdown menu background color.",
+   "fieldname": "dropdown_background_color",
+   "fieldtype": "Color",
+   "label": "Dropdown Background Color"
+  },
+  {
+   "fieldname": "dropdown_menu_hover_color",
+   "fieldtype": "Color",
+   "label": "Dropdown Menu Hover Color"
+  },
+  {
+   "fieldname": "column_break_bboq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "font_weight_web",
+   "fieldtype": "Data",
+   "label": "Font Weight"
+  },
+  {
+   "fieldname": "letter_spacing_web",
+   "fieldtype": "Data",
+   "label": "Letter Spacing"
+  },
+  {
+   "fieldname": "menu_background_color",
+   "fieldtype": "Color",
+   "label": "Menu Background Color"
+  },
+  {
+   "fieldname": "menu_item_spacing_web",
+   "fieldtype": "Data",
+   "label": "Menu Item Spacing"
+  },
+  {
+   "description": "Set the dropdown menu text color.",
+   "fieldname": "dropdown_menu_color",
+   "fieldtype": "Color",
+   "label": "Dropdown Menu Color"
+  },
+  {
+   "fieldname": "column_break_70m0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "font_size_web",
+   "fieldtype": "Data",
+   "label": "Font Size"
+  },
+  {
+   "fieldname": "menu_text_color",
+   "fieldtype": "Color",
+   "label": "Menu Text Color"
+  },
+  {
+   "fieldname": "menu_alignment",
+   "fieldtype": "Select",
+   "label": "Menu Alignment",
+   "options": "left\ncenter\nright"
+  },
+  {
+   "fieldname": "dropdown_menu_hover_background_color",
+   "fieldtype": "Color",
+   "label": "Dropdown Menu Hover Background Color"
+  },
+  {
+   "default": "0",
+   "description": "Apply box shadow for dropdown menu.",
+   "fieldname": "apply_box_shadow",
+   "fieldtype": "Check",
+   "label": "Apply Box Shadow?"
+  },
+  {
+   "depends_on": "eval:doc.apply_box_shadow==1",
+   "fieldname": "dropdown_menu_box_shadow",
+   "fieldtype": "Data",
+   "label": "Dropdown Menu Box Shadow"
+  },
+  {
+   "fieldname": "mobile_menu_section",
+   "fieldtype": "Section Break",
+   "label": "Mobile Menu"
+  },
+  {
+   "fieldname": "mobile_logo_height",
+   "fieldtype": "Data",
+   "label": "Mobile Logo Height"
+  },
+  {
+   "fieldname": "font_weight",
+   "fieldtype": "Select",
+   "label": "Font Weight",
+   "options": "300\n400\n500\n600\n700"
+  },
+  {
+   "fieldname": "letter_spacing",
+   "fieldtype": "Data",
+   "label": "Letter Spacing"
+  },
+  {
+   "fieldname": "menu_padding",
+   "fieldtype": "Data",
+   "label": "Menu Padding"
+  },
+  {
+   "fieldname": "back_button_margin",
+   "fieldtype": "Data",
+   "label": "Back Button Margin"
+  },
+  {
+   "fieldname": "column_break_ofmt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mobile_menu_background",
+   "fieldtype": "Color",
+   "label": "Mobile Menu Background"
+  },
+  {
+   "fieldname": "font_size",
+   "fieldtype": "Data",
+   "label": "Font Size"
+  },
+  {
+   "fieldname": "color",
+   "fieldtype": "Color",
+   "label": "Color"
+  },
+  {
+   "fieldname": "back_button_text_color",
+   "fieldtype": "Color",
+   "label": "Back Button Text Color"
+  },
+  {
+   "fieldname": "column_break_bt69",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "font_family_mob",
+   "fieldtype": "Data",
+   "label": "Font Family Mob"
+  },
+  {
+   "fieldname": "line_height_mob",
+   "fieldtype": "Data",
+   "label": "Line Height Mob"
+  },
+  {
+   "fieldname": "hover_color",
+   "fieldtype": "Color",
+   "label": "Hover Color"
+  },
+  {
+   "fieldname": "back_button_background",
+   "fieldtype": "Color",
+   "label": "Back Button Background"
+  },
+  {
+   "fieldname": "footer_settings_tab",
+   "fieldtype": "Tab Break",
+   "label": "Footer Settings"
+  },
+  {
+   "fieldname": "design_section",
+   "fieldtype": "Section Break",
+   "label": "Design"
+  },
+  {
+   "fieldname": "footer_bg_color",
+   "fieldtype": "Color",
+   "label": "Background Color"
+  },
+  {
+   "fieldname": "background_image",
+   "fieldtype": "Attach",
+   "label": "Background Image"
+  },
+  {
+   "fieldname": "column_break_nkpd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "link_color",
+   "fieldtype": "Color",
+   "label": "Link color"
+  },
+  {
+   "fieldname": "column_break_cxax",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "link_hover_color",
+   "fieldtype": "Color",
+   "label": "Link Hover Color"
+  },
+  {
+   "fieldname": "footer_tile_style_section",
+   "fieldtype": "Section Break",
+   "label": "Footer Title Style"
+  },
+  {
+   "fieldname": "footer_font_family",
+   "fieldtype": "Data",
+   "label": "Font Family"
+  },
+  {
+   "fieldname": "footer_line_height",
+   "fieldtype": "Data",
+   "label": "Line Height"
+  },
+  {
+   "fieldname": "column_break_mlr7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "footer_font_weight",
+   "fieldtype": "Select",
+   "label": "Font Weight",
+   "options": "\n300\n400\n500\n600\n700"
+  },
+  {
+   "fieldname": "footer_letter_spacing",
+   "fieldtype": "Data",
+   "label": "Letter Spacing"
+  },
+  {
+   "fieldname": "column_break_wav1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "footer_font_size",
+   "fieldtype": "Data",
+   "label": "Font Size"
+  },
+  {
+   "fieldname": "footer_text_color",
+   "fieldtype": "Color",
+   "label": "Text Color"
+  },
+  {
+   "fieldname": "footer_text_style_section",
+   "fieldtype": "Section Break",
+   "label": "Footer Text Style"
+  },
+  {
+   "fieldname": "ft_font_family",
+   "fieldtype": "Data",
+   "label": "Font Family"
+  },
+  {
+   "fieldname": "ft_line_height",
+   "fieldtype": "Data",
+   "label": "Line Height"
+  },
+  {
+   "fieldname": "column_break_mp7o",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ft_font_weight",
+   "fieldtype": "Select",
+   "label": "Font Weight",
+   "options": "\n300\n400\n500\n600\n700"
+  },
+  {
+   "fieldname": "ft_letter_spacing",
+   "fieldtype": "Data",
+   "label": "Letter Spacing"
+  },
+  {
+   "fieldname": "column_break_hq1c",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ft_font_size",
+   "fieldtype": "Data",
+   "label": "Font Size"
+  },
+  {
+   "fieldname": "ft_text_color",
+   "fieldtype": "Color",
+   "label": "Text Color"
+  },
+  {
+   "fieldname": "copyright_section",
+   "fieldtype": "Section Break",
+   "label": "Copyright"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_copyright",
+   "fieldtype": "Check",
+   "label": "Enable Copyright"
+  },
+  {
+   "depends_on": "eval:doc.enable_copyright==1",
+   "fieldname": "copyright_content",
+   "fieldtype": "Small Text",
+   "label": "Copyright Content"
+  },
+  {
+   "fieldname": "copyright_content_style_section",
+   "fieldtype": "Section Break",
+   "label": "Copyright Content Style"
+  },
+  {
+   "fieldname": "cr_font_size",
+   "fieldtype": "Data",
+   "label": "Font Size"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_footer_border",
+   "fieldtype": "Check",
+   "label": "Enable Footer Border"
+  },
+  {
+   "depends_on": "eval:doc.enable_footer_border==1",
+   "fieldname": "footer_border_color",
+   "fieldtype": "Color",
+   "label": "Footer Border Color"
+  },
+  {
+   "fieldname": "cr_vertical_padding",
+   "fieldtype": "Data",
+   "label": "Vertical Padding"
+  },
+  {
+   "fieldname": "column_break_2ctp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cr_background_color",
+   "fieldtype": "Color",
+   "label": "Background Color"
+  },
+  {
+   "fieldname": "cr_text_color",
+   "fieldtype": "Color",
+   "label": "Text Color"
+  },
+  {
+   "fieldname": "column_break_ckph",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cr_link_color",
+   "fieldtype": "Color",
+   "label": "Link Color"
+  },
+  {
+   "fieldname": "cr_link_hover_color",
+   "fieldtype": "Color",
+   "label": "Link Hover Color"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-06-26 19:48:05.034290",
+ "modified_by": "Administrator",
+ "module": "Go1 Webshop",
+ "name": "Go1 Webshop Theme",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Guest",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
