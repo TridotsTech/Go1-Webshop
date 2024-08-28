@@ -30,9 +30,9 @@ required_apps = ["erpnext","webshop","builder"]
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
-override_doctype_class = {
-    "Builder Page": "go1_webshop.go1_webshop.doctype.override_doctype.builder_page.BuilderPage",
-}
+# override_doctype_class = {
+#     "Builder Page": "go1_webshop.go1_webshop.doctype.override_doctype.builder_page.BuilderPage",
+# }
 
 fixtures = [
     {
