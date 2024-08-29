@@ -34,6 +34,15 @@ required_apps = ["erpnext","webshop","builder"]
 #     "Builder Page": "go1_webshop.go1_webshop.doctype.override_doctype.builder_page.BuilderPage",
 # }
 
+doc_events = {
+    "Builder Page":{
+        "on_update":"go1_webshop.go1_webshop.api.update_global_script"
+    },
+    "Builder Settings":{
+        "on_update":"go1_webshop.go1_webshop.api.update_global_script_builder_page"
+    }
+}
+
 fixtures = [
     {
         "doctype": "Custom Field",

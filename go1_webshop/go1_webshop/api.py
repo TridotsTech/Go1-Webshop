@@ -214,8 +214,32 @@ def get_product_filter_data(query_args=None):
 def get_guest_redirect_on_action():
 	return frappe.db.get_single_value("Webshop Settings", "redirect_on_action")
 
-@frappe.whitelist(allow_guest=True)
-def get_builder_page_data():
-	doc = frappe.db.get_all("Builder Page",fields = ["published","page_name","route","is_go1_webshop_item",
-												 	"dynamic_route","blocks","page_data_script","preview","page_title"])
-	return doc
+
+@frappe.whitelist()
+def update_global_script(doc,method):
+	global_script = frappe.get_value("Builder Settings","Builder Settings","custom_server_script")
+	if global_script:
+		if doc.page_data_script:
+			if "\n# Global Script\n" not in doc.page_data_script:
+				doc.db_set('page_data_script',"\n# Global Script\n"+ global_script + "\n# Global Script\n"+ doc.page_data_script)
+		else:
+			doc.db_set('page_data_script',"\n# Global Script\n"+global_script + "\n# Global Script\n")
+	frappe.db.commit()
+
+@frappe.whitelist()
+def update_global_script_builder_page(doc,method):
+	old_doc = doc.get_doc_before_save()
+	# global_script = frappe.get_value("Builder Settings","Builder Settings","custom_server_script")
+	pages = frappe.db.get_all("Builder Page",pluck="name")
+	for i in pages:
+		page = frappe.get_doc("Builder Page",i)
+		if doc.custom_server_script:
+			if page.page_data_script:
+				if "\n# Global Script\n" not in page.page_data_script:
+					page.db_set('page_data_script',"\n# Global Script\n"+ doc.custom_server_script + "\n# Global Script\n"+ page.page_data_script)
+				else:
+					parts = page.page_data_script.split("\n# Global Script\n")
+					page.db_set('page_data_script',"\n# Global Script\n"+ doc.custom_server_script + "\n# Global Script\n"+ parts[2])
+			else:
+				page.db_set('page_data_script',"\n# Global Script\n"+doc.custom_server_script + "\n# Global Script\n")
+		frappe.db.commit()
