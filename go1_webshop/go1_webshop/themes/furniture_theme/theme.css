@@ -202,8 +202,6 @@ body{
         bottom: 0px;
     }
     .cart_btn div{
-         
-            font-size: 16px !important;  
         
     }
     .card_amount{
@@ -222,102 +220,64 @@ body{
     }
 
 .go1_header_bg {
-     
-        background: #ffffff;
-    
-     
-        max-width: 100%;
-        padding: 20px 18px !important;
     
     
     
-     
-        padding: 20px 0px;
+    
     
         height: 125px !important;
 }
 .go1_header_bg a img{
-     
-        height: 26px;  
     
 }
 
 .go1_header_bg div p{
-     
-        color: #363e51;  
     
 }
 
 /* WEB MENU */
 .header-menu{
-     
-        background: #ffffff;  
-        border-color: #ffffff;  
     
 }
 /* .header-menu .menu-title a div{
-     
-        font-family: Inter;  
     
     
-     
-        font-size: 14px;  
     
     
-     
-        letter-spacing: 0px;  
     
-        
-        color: #363e51;  
     
 } */
 .header-menu .menu-title a div:hover{
-        
-        color: #363e51;  
     
 }
 .active_parent:after, .hoverMenuSec:after{
-        
-        background: #363e51 !important;  
     
 }
 .hoverMenuSec:hover:after {
     width: 65% !important;
 }
 .header-menu-items{
-        
-        gap: 47px;  
     
         
-        justify-content: center;  
+        justify-content: left;  
     
 }
 /* #nav-drop-down, .profile_menu {
-        
-        background: #363e51;  
     
-        
-        box-shadow: 0 0 8px #4c4c4c;  
     
 } */
 
 
 .sort-label:hover{
-        
-        background: #dff2f2 !important;  
     
 }
 
 
 .sort-label:hover div p {
-        
-        color: #363e51;  
     
 }
 
 .sort-label div p{
-        
-        color: #ffffff;  
     
 }
 
@@ -326,15 +286,11 @@ body{
     border: 0 !important;
     border-radius   : 4px !important;
     padding: 0px !important;
-        
-        box-shadow: 0 0 8px #4c4c4c;  
     
 }
 
 .sort-label {
     border: 0 !important;
-        
-        background: #363e51 !important;  
     
 }
 
@@ -346,22 +302,15 @@ body{
 }
 .announce_bar {
     
-        display: flex;
-        background: #363e51;
-        .announce_bar .__text_block__ {
-            color: #363e51;
-            font-size: 12px;
-        }
+        display: none;
     
 }
 .announce_bar .__text_block__ {
     
-        display: flex;
+        display: none;
     
 }
 .go1_header_bg p{
-     
-        color: #0a0a0a;
     
 }
 .go1_header_bg div{
@@ -378,76 +327,42 @@ body{
     padding: 5px;
 }
 .footer_title p{
-     
-        font-family: 1px solid;
-    
-     
-        font-weight: 900;
-    
-     
-        font-size: 15px;
-    
-     
-        line-height: 20px;
     
     
-     
-        color: #363e51;
+    
+    
+    
     
 }
 .footer_component{
-     
-        background: #f5f5f5;
     
 }
 .footer_text{
-     
-        font-family: Inter;
     
     
-     
-        font-size: 14px;
     
-     
-        line-height: 30px;
     
-     
-        letter-spacing: 0px;
     
-     
-        color: #000000;
     
     
     transition: .2s;
 }
 .footer_text:hover{
-     
-        color: #363e51;
     
     transition: .2s;
     font-weight: 700;
     font-size: 14.5px;
 }
 .footer_component .cpright{
-     
-        background: #f5f5f5;
     
 }
 .cpright .__text_block__ p{
-     
-        color: #000000 !important;
     
-     
-        content: © 2024 Go1Furniture All Rights Reserved.;
     
 }
 
 .right_cart_nav.active{
-     
-        color: #363e51 !important;
     
-     
-        border-color: #363e51 !important;
     
     
 }
@@ -456,8 +371,6 @@ body{
     color: #FFFFFF;
     align-items: center;
     justify-content: center;
-     
-        background: #363e51 !important;
     
 }
 #side-cart-count,
@@ -465,8 +378,6 @@ body{
 #move-cart-button,
 #checkout-button,
 .add_button.pointer-div{
-     
-        background: #363e51 !important;
     
 }
 
@@ -481,35 +392,30 @@ body{
 #login-btn,
 .login-form a,
 .my-order button{
-     
-        background: #363e51 !important;
     
 }
 
 .image_container, .minus_btn{
-     
-        background: #f2f2f2 !important;
     
 }
 input:focus{
-     
-        border-color: #363e51 !important;
     
 }
 
 /* PRODUCT INFO  */
 
 .image_container{
-      
-        background-color: #f0f0f0 !important;
     
 }
 div.owl-wrapper div.owl-item {
     
-        width: 308px !important;
+        width: 410px !important;
     
 }
 .off_container{
+    
+        width: 49% !important;
+        transform: translateX(-22%) translateY(-68%) rotate(-46deg);
     
     
 }
@@ -517,9 +423,11 @@ div.owl-wrapper div.owl-item {
     background:#ffffff !important;
 }
 #login_email,#login_password{
-     background: #f2f2f2; 
+    
 }
 .offer{
+    
+        margin-right: 37px;
     
 }
 .description, .description div p{
@@ -541,10 +449,6 @@ div.owl-wrapper div.owl-item {
     font-weight: 600;
     height: 30px !important;
     
-        font-size: 16px;
-    
-    
-        color: #363e51;
     
 }
 @media screen and (min-width: 700px){
@@ -564,8 +468,6 @@ div.owl-wrapper div.owl-item {
     height: 40px;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    
-        color: #030303;
     
 
 }
@@ -626,15 +528,11 @@ div.owl-wrapper div.owl-item {
     }
 
     .go1_header_bg {
-         
-            background: #ffffff;
         
         height: 55px !important;
         padding: 10px 5px !important;
     }
     .header_back_icon ,.mobile-header-cart-count{
-         
-            background: #363e51;
         
     }
 }
@@ -642,7 +540,7 @@ div.owl-wrapper div.owl-item {
 
 :root {
     /* GLOBAL STYLES */
-     --go1-primary-color: #363e51 important; 
-     --go1-secondary-color: #f2f2f2 important; 
+    
+    
 }
 

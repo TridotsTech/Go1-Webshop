@@ -196,23 +196,25 @@ frappe.ui.form.on("Go1 Webshop Settings", {
             } else {
                 frappe.msgprint('Something went wrong during page import');
             }
-        }
+        },
+        freeze:true,
+        freeze_message:"Please wait, this may take few minutes."
     });
 
     // Initial progress at 0%
-    frappe.show_progress(__('Importing Pages'), 0, 100, 'Starting import...');
+    // frappe.show_progress(__('Importing Pages'), 25, 100, 'Starting import...');
 
-    frappe.realtime.on('import_progress', function(data) {
-        let progress = 0;
-        if (data.stage === 'items') {
-            console.log("60%");
-            progress = 60;
-        }
+    // frappe.realtime.on('import_progress', function(data) {
+    //     let progress = 0;
+    //     if (data.stage === 'items') {
+    //         console.log("60%");
+    //         progress = 60;
+    //     }
 
-        frappe.show_progress(__('Importing Pages'), progress, 100, data.message);
+    //     frappe.show_progress(__('Importing Pages'), progress, 100, data.message);
 
-        if (progress >= 100) {
-            frappe.hide_progress();
-        }
-    });
+    //     if (progress >= 100) {
+    //         frappe.hide_progress();
+    //     }
+    // });
 }

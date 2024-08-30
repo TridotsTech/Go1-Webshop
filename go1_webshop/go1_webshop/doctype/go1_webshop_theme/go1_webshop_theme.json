@@ -154,6 +154,7 @@
   {
    "fieldname": "common_settings_tab",
    "fieldtype": "Tab Break",
+   "hidden": 1,
    "label": "Common Settings"
   },
   {
@@ -243,6 +244,7 @@
   {
    "fieldname": "header_settings_tab",
    "fieldtype": "Tab Break",
+   "hidden": 1,
    "label": "Header Settings"
   },
   {
@@ -570,6 +572,7 @@
   {
    "fieldname": "footer_settings_tab",
    "fieldtype": "Tab Break",
+   "hidden": 1,
    "label": "Footer Settings"
   },
   {
@@ -768,7 +771,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-26 19:48:05.034290",
+ "modified": "2024-08-30 16:51:44.535824",
  "modified_by": "Administrator",
  "module": "Go1 Webshop",
  "name": "Go1 Webshop Theme",
