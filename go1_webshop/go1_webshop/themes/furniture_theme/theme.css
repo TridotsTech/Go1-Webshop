@@ -173,9 +173,7 @@ body{
     top: auto;
     width: fit-content;
   }
-  /* #login_email, #login_password {
-        background: aliceblue;
-    } */
+  
   input:focus{
     --tw-ring-color: #976563; 
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
@@ -257,7 +255,7 @@ body{
         border-color: #ffffff;  
     
 }
-.header-menu .menu-title a div{
+/* .header-menu .menu-title a div{
      
         font-family: Inter;  
     
@@ -272,7 +270,7 @@ body{
         
         color: #363e51;  
     
-}
+} */
 .header-menu .menu-title a div:hover{
         
         color: #363e51;  
@@ -294,33 +292,30 @@ body{
         justify-content: center;  
     
 }
-#nav-drop-down, .profile_menu {
+/* #nav-drop-down, .profile_menu {
         
         background: #363e51;  
     
         
         box-shadow: 0 0 8px #4c4c4c;  
     
-}
+} */
 
-#nav-drop-down a:hover,
-.sort-label:hover,
-.profile_menu a:hover {
+
+.sort-label:hover{
         
         background: #dff2f2 !important;  
     
 }
 
-#nav-drop-down a:hover div,
-.profile_menu a:hover p,
+
 .sort-label:hover div p {
         
         color: #363e51;  
     
 }
-#nav-drop-down a div,
-.sort-label div p,
-.profile_menu a p{
+
+.sort-label div p{
         
         color: #ffffff;  
     
@@ -577,13 +572,7 @@ div.owl-wrapper div.owl-item {
 
 /* MOBILE VIEW */
 @media screen and (max-width: 700px){
-    
-    /* .menuBtn {
-        display: flex !important;
-    } */
-    /* .header_back_icon, .mobile-header-cart-count {
-        display: none !important;
-    } */
+   
     .cart_btn_list{
         position: relative !important;
     }
@@ -649,32 +638,6 @@ div.owl-wrapper div.owl-item {
         
     }
 }
-
-
-
-/* TRANSPARENT */
-
-/* .scrolled {
-    background: #ffffff36;
-    backdrop-filter: blur(10px);
-}
-
-.scrolled .header-menu .menu-title a div{
-    color:rgb(0, 0, 0);
-}
-.scrolled .go1_header_bg .__text_block__ p {
-    color:rgb(0, 0, 0);
-}
-.header-menu, .go1_header_bg {
-    transition: background 0.3s;
-}
-
-.scrolled .header-menu,
-.scrolled .go1_header_bg {
-    background: transparent;
-    backdrop-filter: drop-shadow(0px 6px var(--go1-secondary-color));
-    border: 0px !important;
-} */
 
 
 :root {

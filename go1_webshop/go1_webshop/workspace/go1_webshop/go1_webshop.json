@@ -1,0 +1,37 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"Fk7NbDhaCA\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Open <strong>Go1 Webshop Settings</strong>\",\"col\":5}}]",
+ "creation": "2024-08-30 14:02:39.826697",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "image-view",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Go1 Webshop",
+ "links": [],
+ "modified": "2024-08-30 14:10:07.308522",
+ "modified_by": "Administrator",
+ "module": "Go1 Webshop",
+ "name": "Go1 Webshop",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Open <strong>Go1 Webshop Settings</strong>",
+   "link_to": "Go1 Webshop Settings",
+   "type": "DocType"
+  }
+ ],
+ "title": "Go1 Webshop"
+}
