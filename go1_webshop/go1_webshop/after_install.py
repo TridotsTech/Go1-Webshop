@@ -84,16 +84,28 @@ def get_theme():
 
 @frappe.whitelist(allow_guest=True)
 def insert_pages(theme):
-    frappe.db.sql('DELETE FROM `tabItem`')
-    frappe.db.sql('DELETE FROM `tabWebsite Item`')
-    frappe.db.sql('DELETE FROM `tabItem Group`')
-    frappe.db.sql('DELETE FROM `tabItem Price`')
-    frappe.db.sql('DELETE FROM `tabWebsite Slideshow Item`')
-    frappe.db.sql('DELETE FROM `tabWebsite Slideshow`')
-    frappe.db.sql('DELETE FROM `tabBuilder Page`')
-    frappe.db.sql('DELETE FROM `tabBuilder Component`')
-    # frappe.db.sql('DELETE FROM `tabFile`')
-    frappe.db.sql('DELETE FROM `tabBuilder Client Script`')
+    frappe.db.sql('''DELETE I
+                    FROM `tabWishlist Item` I
+                    INNER JOIN `tabWebsite Item` P ON P.name = I.website_item
+                    WHERE P.is_go1_webshop_item = 1
+                    ''')
+    frappe.db.sql('''DELETE Q
+                    FROM `tabQuotation` Q
+                    INNER JOIN `tabQuotation Item` QI ON QI.parent = Q.name
+                    INNER JOIN `tabItem` I ON QI.item_code = I.name
+                    WHERE I.is_go1_webshop_item = 1
+                ''')
+    frappe.db.sql('DELETE FROM `tabItem` WHERE is_go1_webshop_item = 1')
+    frappe.db.sql('DELETE FROM `tabWebsite Item` WHERE is_go1_webshop_item = 1')
+    frappe.db.sql('DELETE FROM `tabItem Group` WHERE is_go1_webshop_item = 1')
+    frappe.db.sql('DELETE FROM `tabMobile Menu` WHERE is_go1_webshop_item = 1')
+    frappe.db.sql('DELETE FROM `tabItem Price` WHERE is_go1_webshop_item = 1')
+    frappe.db.sql('DELETE FROM `tabWebsite Slideshow Item` WHERE is_go1_webshop_item = 1')
+    frappe.db.sql('DELETE FROM `tabWebsite Slideshow` WHERE is_go1_webshop_item = 1')
+    frappe.db.sql('DELETE FROM `tabBuilder Page` WHERE is_go1_webshop_item = 1')
+    frappe.db.sql('DELETE FROM `tabBuilder Component` WHERE is_go1_webshop_item = 1')
+    # frappe.db.sql('DELETE FROM `tabFile` WHERE is_go1_webshop_item = 1')
+    frappe.db.sql('DELETE FROM `tabBuilder Client Script` WHERE is_go1_webshop_item = 1')
 
     def update_home_page(new_home_route):
         current_home_page = frappe.db.get_value('Website Settings', 'Website Settings', 'home_page')
