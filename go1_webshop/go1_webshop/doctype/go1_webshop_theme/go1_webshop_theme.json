@@ -8,8 +8,12 @@
  "field_order": [
   "section_break_uive",
   "theme_name",
-  "theme_image",
+  "description",
+  "column_break_191t",
   "theme_route",
+  "theme_image",
+  "section_break_cyvu",
+  "category_details",
   "common_settings_tab",
   "primary_color",
   "column_break_m4qy",
@@ -767,11 +771,30 @@
    "fieldname": "cr_link_hover_color",
    "fieldtype": "Color",
    "label": "Link Hover Color"
+  },
+  {
+   "fieldname": "column_break_191t",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "section_break_cyvu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "category_details",
+   "fieldtype": "Table",
+   "label": "Category Details",
+   "options": "Theme Category Details"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-30 16:51:44.535824",
+ "modified": "2024-09-21 15:30:56.977541",
  "modified_by": "Administrator",
  "module": "Go1 Webshop",
  "name": "Go1 Webshop Theme",

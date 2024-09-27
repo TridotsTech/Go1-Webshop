@@ -98,7 +98,7 @@ def insert_pages(theme):
     frappe.db.sql('DELETE FROM `tabItem` WHERE is_go1_webshop_item = 1')
     frappe.db.sql('DELETE FROM `tabWebsite Item` WHERE is_go1_webshop_item = 1')
     frappe.db.sql('DELETE FROM `tabItem Group` WHERE is_go1_webshop_item = 1')
-    frappe.db.sql('DELETE FROM `tabMobile Menu` WHERE is_go1_webshop_item = 1')
+    frappe.db.sql('DELETE FROM `tabMobile Menu`')
     frappe.db.sql('DELETE FROM `tabItem Price` WHERE is_go1_webshop_item = 1')
     frappe.db.sql('DELETE FROM `tabWebsite Slideshow Item` WHERE is_go1_webshop_item = 1')
     frappe.db.sql('DELETE FROM `tabWebsite Slideshow` WHERE is_go1_webshop_item = 1')
@@ -110,10 +110,9 @@ def insert_pages(theme):
     def update_home_page(new_home_route):
         current_home_page = frappe.db.get_value('Website Settings', 'Website Settings', 'home_page')
         frappe.db.set_value('Website Settings', 'Website Settings', 'home_page', new_home_route)
-        frappe.log_error(current_home_page)
         frappe.db.commit()
 
-        home_route = "fashion-landing"
+        home_route = "go1-landing"
         update_home_page(home_route)
 
     insert_custom_fields(theme)
@@ -130,13 +129,6 @@ def clear_cache_for_current_site():
     return commands
 
 
-def truncate_messages(message):
-    """Truncate a message to 140 characters, adding '...' if truncated."""
-    # if len(message) <= 140:
-    #     return message
-    # else:
-    #     return message[:137] + '...'
-    return message
 
 
 @frappe.whitelist(allow_guest=True)
@@ -146,7 +138,7 @@ def prepend_domain_to_image_urls(data, domain):
         for key, value in data.items():
             if isinstance(value, str) and value.startswith("/files/"):
                 data[key] = domain + value
-                log_message = truncate_messages(f"Updated URL for key {key}: {data[key]}")
+                log_message = f"Updated URL for key {key}: {data[key]}"
                 # frappe.log_error(log_message, "URL Update")
             elif isinstance(value, (dict, list)):
                 prepend_domain_to_image_urls(value, domain)
@@ -163,7 +155,7 @@ def update_blocks_with_domain(blocks, domain):
         prepend_domain_to_image_urls(blocks_data, domain)
         return json.dumps(blocks_data)
     except json.JSONDecodeError as e:
-        frappe.log_error(truncate_messages(frappe.get_traceback()), "JSON Decode Error in update_blocks_with_domain")
+        frappe.log_error(frappe.get_traceback(), "JSON Decode Error in update_blocks_with_domain")
         return blocks
 
 
@@ -220,8 +212,6 @@ def insert_custom_fields(theme):
     
     external_url = f"{webshop_theme_settings.url}/api/method/go1_webshop_theme.go1_webshop_theme.utils.get_all_json"
 
-    def truncate_message(message):
-        return message
 
     try:
         response = requests.get(external_url, headers=headers, json={"theme": theme})
@@ -267,36 +257,36 @@ def insert_custom_fields(theme):
                         frappe.log_error(f"Error while downloading and extracting file", frappe.get_traceback())
                         continue
 
-                if i == "theme_css_files":
-                    try:
-                        if j:
-                            source_path = frappe.get_module_path("go1_webshop")
-                            theme_folder = os.path.join(source_path, "themes",theme)
+                # if i == "theme_css_files":
+                #     try:
+                #         if j:
+                #             source_path = frappe.get_module_path("go1_webshop")
+                #             theme_folder = os.path.join(source_path, "themes",theme)
                             
-                            if not os.path.exists(theme_folder):
-                                os.makedirs(theme_folder)
-                            theme_css_path = os.path.join(source_path, "themes", theme, "theme.css")
-                            if os.path.exists(theme_folder):
-                                with open(theme_css_path, 'w') as css_data:
-                                    css_data.write(j)
-                    except:
-                        frappe.log_error(f"Error while creating Theme CSS File{theme}", frappe.get_traceback())
+                #             if not os.path.exists(theme_folder):
+                #                 os.makedirs(theme_folder)
+                #             theme_css_path = os.path.join(source_path, "themes", theme, "theme.css")
+                #             if os.path.exists(theme_folder):
+                #                 with open(theme_css_path, 'w') as css_data:
+                #                     css_data.write(j)
+                #     except:
+                #         frappe.log_error(f"Error while creating Theme CSS File{theme}", frappe.get_traceback())
 
-                if i == "root_css_files":
-                    try:
-                        if j:
-                            app_path = frappe.get_app_path("go1_webshop")
-                            theme_css_path = os.path.join(app_path, "public", "root.css")
-                            with open(theme_css_path, 'w') as css_data:
-                                css_data.write(j)
-                    except:
-                        frappe.log_error(f"Error while creating Root CSS File{theme}", frappe.get_traceback())
+                # if i == "root_css_files":
+                #     try:
+                #         if j:
+                #             app_path = frappe.get_app_path("go1_webshop")
+                #             theme_css_path = os.path.join(app_path, "public", "root.css")
+                #             with open(theme_css_path, 'w') as css_data:
+                #                 css_data.write(j)
+                #     except:
+                #         frappe.log_error(f"Error while creating Root CSS File{theme}", frappe.get_traceback())
 
                 try:
                     if isinstance(j, dict):
                         if j['doctype'] == "Go1 Webshop Theme" and not frappe.db.exists({"doctype": j['doctype'], "name": j['name']}):
                             frappe.get_doc(j).insert(ignore_permissions=True)
-                        if j['doctype'] == "Builder Settings" and not frappe.db.exists({"doctype": j['doctype'], "name": j['__name']}):
+                        if j['doctype'] == "Builder Settings" and not frappe.db.exists({"doctype": j['doctype'], "name": j['name']}):
                             frappe.get_doc(j).insert(ignore_permissions=True)
 
                     if isinstance(j, list):
@@ -328,7 +318,7 @@ def insert_custom_fields(theme):
                             
             
                 except Exception as e:
-                    frappe.log_error(truncate_message(frappe.get_traceback()), "insert_custom_fields_error")
+                    frappe.log_error(frappe.get_traceback(), "insert_custom_fields_error")
                 
 
     except Exception as e:
@@ -341,7 +331,7 @@ def create_builder_component(param):
             frappe.get_doc(param).insert(ignore_permissions=True)
             frappe.db.commit()
     except Exception as e:
-        frappe.log_error(truncate_messages(frappe.get_traceback()), "create_builder_component_error")
+        frappe.log_error(frappe.get_traceback(), "create_builder_component_error")
 
 
 def enqueue_with_retry(function, params, max_retries=5, retry_delay=10):
