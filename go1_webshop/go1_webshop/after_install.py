@@ -286,7 +286,7 @@ def insert_custom_fields(theme):
                     if isinstance(j, dict):
                         if j['doctype'] == "Go1 Webshop Theme" and not frappe.db.exists({"doctype": j['doctype'], "name": j['name']}):
                             frappe.get_doc(j).insert(ignore_permissions=True)
-                        if j['doctype'] == "Builder Settings" and not frappe.db.exists({"doctype": j['doctype'], "name": j['name']}):
+                        if j['doctype'] == "Builder Settings":
                             frappe.get_doc(j).insert(ignore_permissions=True)
 
                     if isinstance(j, list):

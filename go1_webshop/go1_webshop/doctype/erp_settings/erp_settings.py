@@ -137,6 +137,7 @@ class ErpSettings(Document):
 			if item_list:
 				for x in item_list:
 					web_item = frappe.get_doc("Website Item", {"route":x.route})
+					x.enable_wishlist = frappe.db.get_single_value("Webshop Settings","enable_wishlist")
 					x.wished = False
 					if frappe.session.user != "Guest":
 						check_wishlist = frappe.db.get_all("Wishlist Item",filters={"item_code":web_item.item_code,"parent":frappe.session.user})
@@ -191,6 +192,7 @@ class ErpSettings(Document):
 					"cart_count":cart_count,"related_items":related_items,
 					"recommended_items":recommended_items,
 					"parents":parents}
+			frappe.log_error("return_obj",return_obj)
 			return return_obj
 		except:
 			frappe.error_log("Error in erp_settings.get_item_details", frappe.get_traceback())
