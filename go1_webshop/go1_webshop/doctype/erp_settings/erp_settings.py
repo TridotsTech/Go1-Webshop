@@ -265,10 +265,12 @@ class ErpSettings(Document):
 
 def get_external_url_details(file_name, api_name):
 	webshop_theme_settings = frappe.get_single("Go1 Webshop Theme Settings")
-	headers = {
-		"Content-Type": "application/json",
-		"Authorization": f"token {webshop_theme_settings.api_key}:{webshop_theme_settings.api_secret}"
-	}
+	headers = {}
+	if webshop_theme_settings.api_key and webshop_theme_settings.api_secret:
+		headers = {
+			"Content-Type": "application/json",
+			"Authorization": f"token {webshop_theme_settings.api_key}:{webshop_theme_settings.api_secret}"
+		}
 	external_url = f"{webshop_theme_settings.url}/api/method/go1_webshop_theme.go1_webshop_theme.{file_name}.{api_name}"
 
 	return {
