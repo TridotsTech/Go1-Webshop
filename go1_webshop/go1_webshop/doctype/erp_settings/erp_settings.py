@@ -247,10 +247,9 @@ class ErpSettings(Document):
 					theme["is_installed"] = 1 if frappe.db.get_all("Go1 Webshop Theme", filters = {"name": theme.get("name")}) else 0
 				return data
 			return themes.get('message', [])
-		except requests.exceptions.RequestException as e:
-			frappe.throw(_('Error in erp_settings.get_theme_details').format(str(e)))
 		except:
 			frappe.log_error("Error in erp_settings.get_theme_details", frappe.get_traceback())
+			return []
 
 
 	def check_installed_theme(self, theme_route = None):
