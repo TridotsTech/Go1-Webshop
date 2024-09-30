@@ -285,6 +285,7 @@ def insert_custom_fields(theme):
                             frappe.get_doc(j).insert(ignore_permissions=True)
 
                     if isinstance(j, list):
+                        
                         for k in j:
                             if k['doctype'] == "Builder Component":
                                 # frappe.enqueue(create_builder_component, queue='short', timeout=60, is_async=True, param=k, domain=webshop_theme_settings.url)
