@@ -275,3 +275,9 @@ def insert_theme_register(full_name = None, email = None, phone = None):
 		return "Success"
 	except:
 		frappe.log_error("Error in api.insert_theme_register", frappe.get_traceback())
+
+
+@frappe.whitelist()
+def update_website_item_route(doc,method):
+	if doc.route:
+		doc.route = doc.route.replace("/","-")

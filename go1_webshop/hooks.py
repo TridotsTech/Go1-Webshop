@@ -40,6 +40,9 @@ doc_events = {
     },
     "Builder Settings":{
         "on_update":"go1_webshop.go1_webshop.api.update_global_script_builder_page"
+    },
+    "Website Item":{
+        "validate":"go1_webshop.go1_webshop.api.update_website_item_route"
     }
 }
 
