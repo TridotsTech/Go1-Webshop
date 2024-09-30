@@ -274,7 +274,7 @@ def get_external_url_details(file_name, api_name):
 	else:
 		headers = {
 					"Content-Type": "application/json",
-					"Authorization": f"token 3d093a42c7259c1:03eb9b50bc6e9ff"
+					"Authorization": f"token ecf7fae867bd4dc:a2fba140d95cc35"
 				}
 	external_url = f"{webshop_theme_settings.url}/api/method/go1_webshop_theme.go1_webshop_theme.{file_name}.{api_name}"
 
