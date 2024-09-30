@@ -259,7 +259,7 @@ def insert_theme_register(full_name = None, email = None, phone = None):
 	try:
 		response = requests.post(
 									external_url_details.get("external_url"),
-									headers = external_url_details.get("headers"),
+									headers = external_url_details.get("headers"), 
 									data = json.dumps(payload)
 								)
 		response.raise_for_status()
