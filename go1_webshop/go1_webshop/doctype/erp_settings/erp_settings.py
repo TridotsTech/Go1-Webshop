@@ -206,8 +206,8 @@ class ErpSettings(Document):
 
 	def get_template_category_details(self, theme_route = None):
 		external_url_details = get_external_url_details("api", "get_template_category_details")
-		# user_name = frappe.session.user
-		user_name = "abishek@tridotstech.com"
+		user_name = frappe.session.user
+		# user_name = "abishek@tridotstech.com"
 		payload = {
 					"user": user_name
 				}
@@ -230,8 +230,8 @@ class ErpSettings(Document):
 
 	def get_theme_details(self, theme_route = None):
 		external_url_details = get_external_url_details("api", "get_themes_details")
-		# user_name = frappe.session.user
-		user_name = "abishek@tridotstech.com"
+		user_name = frappe.session.user
+		# user_name = "abishek@tridotstech.com"
 		payload = {
 					"user": user_name
 				}
