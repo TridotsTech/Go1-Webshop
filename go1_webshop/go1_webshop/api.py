@@ -1,9 +1,10 @@
 from frappe import _
 import frappe
-from frappe.utils import cint
 import json
-
+import requests
+from frappe import _
 from webshop.webshop.product_data_engine.filters import ProductFiltersBuilder
+from frappe.utils import cint
 from go1_webshop.go1_webshop.query import ProductQuery
 from webshop.webshop.doctype.override_doctype.item_group import get_child_groups_for_website
 
@@ -244,3 +245,32 @@ def update_global_script_builder_page(doc,method):
 			else:
 				page.db_set('page_data_script',"\n# Start Global Script\n"+doc.custom_server_script + "\n# End Global Script\n")
 		frappe.db.commit()
+
+
+@frappe.whitelist()
+def insert_theme_register(full_name = None, email = None, phone = None):
+	payload = {
+				"full_name": full_name,
+				"email": email,
+				"phone":phone
+			}
+	from go1_webshop.go1_webshop.doctype.erp_settings.erp_settings import get_external_url_details
+	external_url_details = get_external_url_details("api", "insert_go1_theme_registration")
+	try:
+		response = requests.post(
+									external_url_details.get("external_url"),
+									headers = external_url_details.get("headers"), 
+									data = json.dumps(payload)
+								)
+		response.raise_for_status()
+		themes = response.json()
+		if themes and themes.get("message"):
+			output = themes.get("message")
+			if output.get("api_key") and output.get("api_secret"):
+				go1_theme_settings = frappe.get_doc("Go1 Webshop Theme Settings")
+				go1_theme_settings.api_key = output.get("api_key")
+				go1_theme_settings.api_secret = output.get("api_secret")
+				go1_theme_settings.save(ignore_permissions = True)
+		return "Success"
+	except:
+		frappe.log_error("Error in api.insert_theme_register", frappe.get_traceback())

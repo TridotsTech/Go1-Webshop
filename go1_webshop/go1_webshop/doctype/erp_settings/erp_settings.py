@@ -3,6 +3,8 @@
 
 import frappe
 import json
+import requests
+from frappe import _
 from frappe.model.document import Document
 from webshop.webshop.doctype.override_doctype.item_group import WebshopItemGroup
 # from webshop.webshop.api import get_product_filter_data
@@ -143,8 +145,8 @@ class ErpSettings(Document):
 						check_wishlist = frappe.db.get_all("Wishlist Item",filters={"item_code":web_item.item_code,"parent":frappe.session.user})
 						if check_wishlist:
 							x.wished = True
-					if not x.website_item_thumbnail:
-						x.website_item_thumbnail = "/files/go1logo-color.svg"
+					# if not x.website_item_thumbnail:
+					# 	x.website_item_thumbnail = "/files/go1logo-color.svg"
 					price_info = self.get_item_price(x.item_code)
 					if price_info and price_info.get("product_info"):
 						x.in_stock = price_info.get("product_info").get("in_stock")
@@ -152,8 +154,8 @@ class ErpSettings(Document):
 							x.formatted_price = price_info.get("product_info").get("price").get("formatted_price")
 							x.discount_percent = price_info.get("product_info").get("price").get("discount_percent")
 							x.formatted_mrp = price_info.get("product_info").get("price").get("formatted_mrp")
-					if not x.website_image:
-						x.website_image = "/files/gf_no_image.png"
+					# if not x.website_image:
+					# 	x.website_image = "/files/gf_no_image.png"
 					related_item_offers = frappe.db.get_all("Website Offer", filters={"parent": web_item.name}, fields=["offer_title"])
 					x.offer_title = related_item_offers[0].offer_title if related_item_offers else None
 					x.cart_count = 0
@@ -196,6 +198,82 @@ class ErpSettings(Document):
 			return return_obj
 		except:
 			frappe.error_log("Error in erp_settings.get_item_details", frappe.get_traceback())
+
+
+	def get_template_category_details(self, theme_route = None):
+		external_url_details = get_external_url_details("api", "get_template_category_details")
+		# user_name = frappe.session.user
+		user_name = "abishek@tridotstech.com"
+		payload = {
+					"user": user_name
+				}
+		if theme_route:
+			payload["theme_route"] = theme_route
+		try:
+			response = requests.post(
+										external_url_details.get("external_url"),
+										headers = external_url_details.get("headers"), 
+										json = payload
+									)
+			response.raise_for_status()
+			themes = response.json()
+			return themes.get('message', [])
+		except requests.exceptions.RequestException as e:
+			frappe.throw(_('Error in erp_settings.get_template_category_details').format(str(e)))
+		except:
+			frappe.log_error("Error in erp_settings.get_template_category_details", frappe.get_traceback())
+
+
+	def get_theme_details(self, theme_route = None):
+		external_url_details = get_external_url_details("api", "get_themes_details")
+		# user_name = frappe.session.user
+		user_name = "abishek@tridotstech.com"
+		payload = {
+					"user": user_name
+				}
+		if theme_route:
+			payload["theme_route"] = theme_route
+		try:
+			response = requests.post(
+										external_url_details.get("external_url"),
+										headers = external_url_details.get("headers"), 
+										json = payload
+									)
+			response.raise_for_status()
+			themes = response.json()
+			if themes and themes.get("message"):
+				data = themes.get("message")
+				for theme in data:
+					theme["is_installed"] = 1 if frappe.db.get_all("Go1 Webshop Theme", filters = {"name": theme.get("name")}) else 0
+				return data
+			return themes.get('message', [])
+		except requests.exceptions.RequestException as e:
+			frappe.throw(_('Error in erp_settings.get_theme_details').format(str(e)))
+		except:
+			frappe.log_error("Error in erp_settings.get_theme_details", frappe.get_traceback())
+
+
+	def check_installed_theme(self, theme_route = None):
+		is_installed = "Download & Install"
+		if frappe.db.exists("Go1 Webshop Theme", {"theme_route": theme_route}):
+			is_installed = "Activate"
+		return is_installed
+
+
+def get_external_url_details(file_name, api_name):
+	webshop_theme_settings = frappe.get_single("Go1 Webshop Theme Settings")
+	headers = {
+		"Content-Type": "application/json",
+		"Authorization": f"token {webshop_theme_settings.api_key}:{webshop_theme_settings.api_secret}"
+	}
+	external_url = f"{webshop_theme_settings.url}api/method/go1_webshop_theme.go1_webshop_theme.{file_name}.{api_name}"
+
+	return {
+			"external_url": external_url,
+			"headers": headers
+		}
+
+
 class ItemGroupInfo():
 	def validate(self):
 		super(WebshopItemGroup, self).get_context()

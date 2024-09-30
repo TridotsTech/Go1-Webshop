@@ -89,7 +89,7 @@ fixtures = [
 
 # before_install = "go1_webshop.install.before_install"
 # after_install = "go1_webshop.install.after_install"
-# after_install = "go1_webshop.go1_webshop.after_install.after_install"
+after_install = "go1_webshop.go1_webshop.after_install.insert_theme_selection_details"
 # Uninstallation
 # ------------
 
