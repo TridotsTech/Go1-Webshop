@@ -68,7 +68,9 @@ class ErpSettings(Document):
 	def redirect_login(self,redirect_url=None):
 		frappe.local.flags.redirect_location = '/login'+("?redirect_url="+redirect_url) if redirect_url else ""
 		raise frappe.Redirect
-		
+	def redirect_page(self,page):
+		frappe.local.flags.redirect_location = page
+		raise frappe.Redirect
 	def get_item_reviews(self,website_item):
 		from webshop.webshop.doctype.item_review.item_review import get_item_reviews as _get_item_reviews
 		reviews_data =  _get_item_reviews(website_item)
