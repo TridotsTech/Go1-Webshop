@@ -43,6 +43,9 @@ doc_events = {
     },
     "Website Item":{
         "validate":"go1_webshop.go1_webshop.api.update_website_item_route"
+    },
+    "Item Group":{
+        "validate":"go1_webshop_theme.go1_webshop_theme.api.update_website_item_route"
     }
 }
 
