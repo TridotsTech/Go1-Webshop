@@ -265,7 +265,7 @@ def get_external_url_details(file_name, api_name):
 		"Content-Type": "application/json",
 		"Authorization": f"token {webshop_theme_settings.api_key}:{webshop_theme_settings.api_secret}"
 	}
-	external_url = f"{webshop_theme_settings.url}api/method/go1_webshop_theme.go1_webshop_theme.{file_name}.{api_name}"
+	external_url = f"{webshop_theme_settings.url}/api/method/go1_webshop_theme.go1_webshop_theme.{file_name}.{api_name}"
 
 	return {
 			"external_url": external_url,
