@@ -25,30 +25,28 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "ecf7fae867bd4dc",
    "fieldname": "api_key",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "API Key",
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "column_break_u21r",
    "fieldtype": "Column Break"
   },
   {
-   "default": "a2fba140d95cc35",
    "fieldname": "api_secret",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "API Secret",
-   "reqd": 1
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-08-30 14:00:15.372984",
+ "modified": "2024-09-30 17:47:56.388978",
  "modified_by": "Administrator",
  "module": "Go1 Webshop",
  "name": "Go1 Webshop Theme Settings",
