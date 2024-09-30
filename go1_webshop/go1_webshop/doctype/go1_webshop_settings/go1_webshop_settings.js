@@ -3,8 +3,9 @@ frappe.ui.form.on("Go1 Webshop Settings", {
 	},
        import_all_pages(frm){
             // console.log("CLicked");
-            fetchThemesAndShowDialog(frm);
-            frm.reload_doc()
+            // fetchThemesAndShowDialog(frm);
+            // frm.reload_doc()
+            window.location.href = "/browse-go1-themes"
        }
    });
 //    function fetchThemesAndShowDialog(frm) {

@@ -19,18 +19,19 @@
   {
    "fieldname": "import_all_pages",
    "fieldtype": "Button",
-   "label": "Import All Pages"
+   "label": "Explore Themes"
   },
   {
    "fieldname": "selected_theme",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Selected Theme"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-06-27 11:20:38.437206",
+ "modified": "2024-09-30 16:19:35.710012",
  "modified_by": "Administrator",
  "module": "Go1 Webshop",
  "name": "Go1 Webshop Settings",
