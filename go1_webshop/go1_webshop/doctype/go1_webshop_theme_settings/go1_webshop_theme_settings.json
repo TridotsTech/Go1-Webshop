@@ -13,7 +13,7 @@
  ],
  "fields": [
   {
-   "default": "https://go1themes.frappe.cloud/",
+   "default": "https://go1themes.tridotstech.com/",
    "fieldname": "url",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -46,7 +46,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-09-30 17:47:56.388978",
+ "modified": "2024-10-01 14:42:08.315641",
  "modified_by": "Administrator",
  "module": "Go1 Webshop",
  "name": "Go1 Webshop Theme Settings",
