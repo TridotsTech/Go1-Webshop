@@ -118,6 +118,27 @@ class ErpSettings(Document):
 		return item_list
 
 
+	def get_trending_item_details(self, limit_page_length = 3, user_name = None):
+		try:
+			query = f"""SELECT WI.name AS website_item_id, I.name AS item_id, SUM(QI.qty) AS total_qty,
+							WI.route
+						FROM `tabWebsite Item` WI
+						INNER JOIN `tabItem` I ON I.item_code = WI.item_code
+						INNER JOIN `tabQuotation Item` QI ON I.item_code = QI.item_code
+						WHERE WI.published = 1
+						GROUP BY WI.name, I.name
+						ORDER BY total_qty DESC
+						LIMIT {limit_page_length}
+					"""
+			item_list = frappe.db.sql(query, as_dict = True)
+			if item_list:
+				self.get_items_price(item_list = item_list, user_name = user_name)
+			return item_list
+		except:
+			frappe.log_error("Error in erp_settings.get_trending_item_details", frappe.get_traceback())
+			return []
+
+
 	def get_cart_count(self, user_name = None, item_code = None):
 		if user_name:
 			if frappe.db.exists("Quotation", {"status":"Draft", "quotation_to": "Customer", "party_name": user_name}):
@@ -176,6 +197,7 @@ class ErpSettings(Document):
 			return item_list
 		except:
 			frappe.error_log("Error in erp_settings.get_recommented_items", frappe.get_traceback())
+			return []
 
 	def get_item_details(self,route,user_name,page_length):
 		try:
