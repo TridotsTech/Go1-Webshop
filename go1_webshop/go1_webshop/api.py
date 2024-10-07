@@ -219,7 +219,7 @@ def get_guest_redirect_on_action():
 @frappe.whitelist()
 def update_global_script(doc,method):
 	global_script = frappe.get_value("Builder Settings","Builder Settings","custom_server_script")
-	if global_script:
+	if global_script and doc.is_go1_webshop_item:
 		if doc.page_data_script:
 			if"\n# End Global Script\n" not in doc.page_data_script:
 				doc.db_set('page_data_script',"\n# Start Global Script\n"+ global_script + "\n# End Global Script\n"+ doc.page_data_script)
@@ -235,7 +235,7 @@ def update_global_script_builder_page(doc,method):
 	pages = frappe.db.get_all("Builder Page",pluck="name")
 	for i in pages:
 		page = frappe.get_doc("Builder Page",i)
-		if doc.custom_server_script:
+		if doc.custom_server_script and page.is_go1_webshop_item:
 			if page.page_data_script:
 				if "\n# End Global Script\n" not in page.page_data_script:
 					page.db_set('page_data_script',"\n# Start Global Script\n"+ doc.custom_server_script + "\n# End Global Script\n"+ page.page_data_script)

@@ -81,8 +81,7 @@ def insert_builder_pages(folder_path, file_name):
         with open(file_path, 'r') as f:
             data = json.load(f)
             if data:
-                if file_name == "builder_pages.json":
-                    read_page_module_path(data)
+                read_page_module_path(data)
 
 
 def read_file_path(folder_path, file_name):
