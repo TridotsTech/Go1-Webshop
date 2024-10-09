@@ -13,7 +13,9 @@ MAX_METHOD_LENGTH = 255
 
 
 def make_error_log(message = ""):
-    frappe.log_error(message, frappe.get_trace_back())
+    frappe.log_error(message, frappe.get_traceback())
+
+
 # Don't Remove this API
 # @frappe.whitelist(allow_guest=True)
 # def fetch_themes_from_external_url():
@@ -91,12 +93,17 @@ def update_webshop_dettings():
         webshop_settings.enable_variants = 1
         webshop_settings.show_stock_availability = 1
         webshop_settings.show_price = 1
-        webshop_settings.enabled = 1
-        webshop_settings.company = company[0].name
+        webshop_settings.show_quantity_in_website = 1
+        webshop_settings.enable_reviews = 1
+        webshop_settings.enable_reviews = 1
+        webshop_settings.enable_recommendations = 1
         webshop_settings.enable_wishlist = 1
-        webshop_settings.price_list = "Standard Selling"
-        webshop_settings.quotation_series = "SAL-QTN-.YYYY.-"
-        webshop_settings.default_customer_group = "All Customer Groups"
+        if company:
+            webshop_settings.enabled = 1
+            webshop_settings.company = company[0].name
+            webshop_settings.price_list = "Standard Selling"
+            webshop_settings.quotation_series = "SAL-QTN-.YYYY.-"
+            webshop_settings.default_customer_group = "All Customer Groups"
         webshop_settings.save(ignore_permissions = True)
     except:
         make_error_log(message = "Error in after_install.update_webshop_dettings")
