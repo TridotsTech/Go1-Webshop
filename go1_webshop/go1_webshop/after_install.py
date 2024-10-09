@@ -8,8 +8,12 @@ from frappe import _
 from frappe.utils.background_jobs import enqueue
 from go1_webshop.go1_webshop.doctype.override_doctype.builder_page import log_css_template
 
+MAX_LOG_LENGTH = 140
+MAX_METHOD_LENGTH = 255
 
 
+def make_error_log(message = ""):
+    frappe.log_error(message, frappe.get_trace_back())
 # Don't Remove this API
 # @frappe.whitelist(allow_guest=True)
 # def fetch_themes_from_external_url():
@@ -65,17 +69,59 @@ def after_install():
     get_theme()
 
 
+
 @frappe.whitelist(allow_guest=True)
 def insert_theme_selection_details():
-    module_path = frappe.get_module_path("go1_webshop")
-    folder_path = os.path.join(module_path, "default_pages")
-    if os.path.exists(folder_path):
-        read_file_path(folder_path, "builder_client_scripts.json")
-        read_file_path(folder_path, "builder_components.json")
-        insert_builder_pages(folder_path, "builder_pages.json")
+    
+    """ After install functionalities """
+    
+    update_webshop_dettings()
+    insert_default_pages()
+    clear_cache_for_current_site()
+
+
+def update_webshop_dettings():
+
+    """ Set the default values for Webshop Settings """
+
+    try:
+        company = frappe.db.get_all("Company")
+        webshop_settings = frappe.get_single("Webshop Settings")
+        webshop_settings.products_per_page = 20
+        webshop_settings.enable_variants = 1
+        webshop_settings.show_stock_availability = 1
+        webshop_settings.show_price = 1
+        webshop_settings.enabled = 1
+        webshop_settings.company = company[0].name
+        webshop_settings.enable_wishlist = 1
+        webshop_settings.price_list = "Standard Selling"
+        webshop_settings.quotation_series = "SAL-QTN-.YYYY.-"
+        webshop_settings.default_customer_group = "All Customer Groups"
+        webshop_settings.save(ignore_permissions = True)
+    except:
+        make_error_log(message = "Error in after_install.update_webshop_dettings")
+        pass
+
+
+def insert_default_pages():
+    
+    """ To insert the Default Builder Pages """
+    try:
+        module_path = frappe.get_module_path("go1_webshop")
+        folder_path = os.path.join(module_path, "default_pages")
+        if os.path.exists(folder_path):
+            read_file_path(folder_path, "builder_client_scripts.json")
+            read_file_path(folder_path, "builder_components.json")
+            insert_builder_pages(folder_path, "builder_pages.json")
+    except:
+        make_error_log(message = "Error in after_install.insert_default_pages")
+        pass
 
 
 def insert_builder_pages(folder_path, file_name):
+    
+    """ To insert the Default Builder Pages """
+    
     file_path = os.path.join(folder_path, file_name)
     if os.path.exists(file_path):
         with open(file_path, 'r') as f:
@@ -85,6 +131,9 @@ def insert_builder_pages(folder_path, file_name):
 
 
 def read_file_path(folder_path, file_name):
+
+    """ To insert the Builder Client Scripts and Builder Components for Default Builder Pages """
+    
     file_path = os.path.join(folder_path, file_name)
     if os.path.exists(file_path):
         with open(file_path, 'r') as f:
@@ -102,8 +151,8 @@ def read_file_path(folder_path, file_name):
 @frappe.whitelist(allow_guest=True)
 def get_theme():
     themes = [
-                {"theme_name": "Go1 Furniture Theme", "doctype":"Go1 Webshop Theme", "theme_image": "/files/Furniture theme.png", "theme_route": "furniture_theme"},
-                {"theme_name": "Go1 Cosmetics Theme", "doctype":"Go1 Webshop Theme", "theme_image": "/files/Cosmetics theme.png", "theme_route": "fashion_theme"}
+                {"theme_name": "Go1 Furniture Theme", "doctype":"Go1 Webshop Theme", "theme_image": "https://go1themes.tridotstech.com/files/Go1%20Furniture%20theme.png", "theme_route": "furniture_theme"},
+                {"theme_name": "Go1 Cosmetics Theme", "doctype":"Go1 Webshop Theme", "theme_image": "https://go1themes.tridotstech.com/files/Cosmetics%20theme.png", "theme_route": "fashion_theme"}
             ]
     for theme in themes:
         exists = frappe.db.exists("Go1 Webshop Theme", {"theme_name": theme["theme_name"]})
@@ -118,6 +167,7 @@ def get_theme():
 
 @frappe.whitelist(allow_guest=True)
 def insert_pages(theme):
+    """ Deleting Old Theme Data """
     frappe.db.sql('''DELETE I
                     FROM `tabWishlist Item` I
                     INNER JOIN `tabWebsite Item` P ON P.name = I.website_item
@@ -155,17 +205,20 @@ def insert_pages(theme):
 
 # @frappe.whitelist(allow_guest=True)
 def clear_cache_for_current_site():
+    
+    """ CLear Cache """
+    
     current_site = frappe.local.site
     commands = f"bench --site {current_site} clear-cache"
     os.system(commands)
     return commands
 
 
-
-
 @frappe.whitelist(allow_guest=True)
 def prepend_domain_to_image_urls(data, domain):
+    
     """Recursively prepend domain to image URLs in the given dictionary or list."""
+    
     if isinstance(data, dict):
         for key, value in data.items():
             if isinstance(value, str) and value.startswith("/files/"):
@@ -180,7 +233,9 @@ def prepend_domain_to_image_urls(data, domain):
 
 
 def update_blocks_with_domain(blocks, domain):
+    
     """Update the blocks key with domain prepended to all src attributes."""
+    
     try:
         blocks_data = json.loads(blocks)
         prepend_domain_to_image_urls(blocks_data, domain)
@@ -188,10 +243,6 @@ def update_blocks_with_domain(blocks, domain):
     except json.JSONDecodeError as e:
         frappe.log_error(frappe.get_traceback(), "JSON Decode Error in update_blocks_with_domain")
         return blocks
-
-
-MAX_LOG_LENGTH = 140
-MAX_METHOD_LENGTH = 255
 
 
 @frappe.whitelist()
@@ -287,7 +338,6 @@ def insert_custom_fields(theme):
                         
                         for k in j:
                             if k['doctype'] == "Builder Component":
-                                # frappe.enqueue(create_builder_component, queue='short', timeout=60, is_async=True, param=k, domain=webshop_theme_settings.url)
                                 create_builder_component(k)
                             elif k['doctype'] == "Builder Client Script" and not frappe.db.exists({"doctype": k.get('doctype'), "name": k.get('name')}):
                                 script_doc = frappe.get_doc(k).insert(ignore_permissions=True)

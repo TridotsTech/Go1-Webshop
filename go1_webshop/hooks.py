@@ -49,16 +49,16 @@ doc_events = {
     }
 }
 
-fixtures = [
-    {
-        "doctype": "Custom Field",
-        "filters": [
-            ["name", "in", (
-                "Builder Settings-custom_server_script"
-            )]
-        ]
-    }
-]
+# fixtures = [
+#     {
+#         "doctype": "Custom Field",
+#         "filters": [
+#             ["name", "in", (
+#                 "Builder Settings-custom_server_script"
+#             )]
+#         ]
+#     }
+# ]
 # Svg Icons
 # ------------------
 # include app icons in desk
