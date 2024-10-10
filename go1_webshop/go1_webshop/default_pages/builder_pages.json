@@ -29,12 +29,7 @@
         "doctype": "Builder Page",
         "client_scripts": [
             {
-                "idx": 1,
-                "builder_script": "Theme List Javascript",
-                "parent": "page-7cf11036",
-                "parentfield": "client_scripts",
-                "parenttype": "Builder Page",
-                "doctype": "Builder Page Client Script"
+                "builder_script": "Theme List Javascript"
             }
         ]
     },
@@ -68,12 +63,7 @@
         "doctype": "Builder Page",
         "client_scripts": [
             {
-                "idx": 1,
-                "builder_script": "JavaScript-b2f26",
-                "parent": "page-09d1b812",
-                "parentfield": "client_scripts",
-                "parenttype": "Builder Page",
-                "doctype": "Builder Page Client Script"
+                "builder_script": "JavaScript-b2f26"
             }
         ]
     }
