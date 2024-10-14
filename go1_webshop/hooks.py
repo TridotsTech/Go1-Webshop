@@ -49,6 +49,11 @@ doc_events = {
     }
 }
 
+
+after_migrate = [
+	"go1_webshop.go1_webshop.after_install.insert_theme_selection_details"
+]
+
 # fixtures = [
 #     {
 #         "doctype": "Custom Field",
@@ -95,7 +100,7 @@ doc_events = {
 
 # before_install = "go1_webshop.install.before_install"
 # after_install = "go1_webshop.install.after_install"
-after_install = "go1_webshop.go1_webshop.after_install.insert_theme_selection_details"
+# after_install = "go1_webshop.go1_webshop.after_install.insert_theme_selection_details"
 # Uninstallation
 # ------------
 

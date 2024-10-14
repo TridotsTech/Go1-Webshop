@@ -75,7 +75,7 @@ def after_install():
 @frappe.whitelist(allow_guest=True)
 def insert_theme_selection_details():
     
-    """ After install functionalities """
+    """ After migrate functionalities """
     
     update_webshop_dettings()
     insert_default_pages()
@@ -94,8 +94,6 @@ def update_webshop_dettings():
         webshop_settings.show_stock_availability = 1
         webshop_settings.show_price = 1
         webshop_settings.show_quantity_in_website = 1
-        webshop_settings.enable_reviews = 1
-        webshop_settings.enable_reviews = 1
         webshop_settings.enable_recommendations = 1
         webshop_settings.enable_wishlist = 1
         if company:
@@ -112,7 +110,7 @@ def update_webshop_dettings():
 
 def insert_default_pages():
     
-    """ To insert the Default Builder Pages """
+    """ To insert the Default Builder Pages for browse themes """
     try:
         module_path = frappe.get_module_path("go1_webshop")
         folder_path = os.path.join(module_path, "default_pages")
@@ -147,10 +145,15 @@ def read_file_path(folder_path, file_name):
             data = json.load(f)
             if data:
                 for k in data:
-                    if k['doctype'] == "Builder Client Script" and not frappe.db.exists({"doctype": k.get('doctype'), "name": k.get('name')}):
-                        script_doc = frappe.get_doc(k).insert(ignore_permissions=True)
-                        frappe.db.sql("""UPDATE `tabBuilder Client Script` SET name=%(c_name)s WHERE name=%(s_name)s""", {"c_name": k.get('name'), "s_name": script_doc.name})
-                        frappe.db.commit()
+                    if k['doctype'] == "Builder Client Script":
+                        if not frappe.db.exists({"doctype": k.get('doctype'), "name": k.get('name')}):
+                            script_doc = frappe.get_doc(k).insert(ignore_permissions=True)
+                            frappe.db.sql("""UPDATE `tabBuilder Client Script` SET name=%(c_name)s WHERE name=%(s_name)s""", {"c_name": k.get('name'), "s_name": script_doc.name})
+                            frappe.db.commit()
+                        else:
+                            script_doc = frappe.get_doc("Builder Client Script", k.get('name'))
+                            script_doc.update(k)
+                            script_doc.save(ignore_permissions = True)
                     elif k['doctype'] == "Builder Component":
                         create_builder_component(k)
 
@@ -375,7 +378,11 @@ def create_builder_component(param):
     try:
         if not frappe.db.exists({"doctype": param['doctype'], "name": param['component_name']}):
             frappe.get_doc(param).insert(ignore_permissions=True)
-            frappe.db.commit()
+        else:
+            doc = frappe.get_doc(param['doctype'], param['component_name'])
+            doc.update(param)
+            doc.save(ignore_permissions = True)
+        frappe.db.commit()
     except Exception as e:
         frappe.log_error(frappe.get_traceback(), "create_builder_component_error")
 
@@ -388,7 +395,7 @@ def read_page_module_path(out):
                     out_json[i.get('page_title')] = i['client_scripts']
                     del i['client_scripts']
                 if not frappe.db.exists({"doctype": i.get('doctype'), "page_title": i.get('page_title')}):
-                    page_doc = frappe.get_doc(i).insert(ignore_permissions=True)
+                    page_doc = frappe.get_doc(i).insert(ignore_permissions = True)
 
                     frappe.db.set_value(i.get('doctype'), page_doc.name, 'route', i.get('route'))
                     
@@ -401,6 +408,10 @@ def read_page_module_path(out):
                                         (script_name, script.get('builder_script'), page_doc.name))
 
                             frappe.db.commit()
+                else:
+                    page_doc = frappe.get_doc(i.get('doctype'), {"page_title": i.get('page_title')})
+                    page_doc.update(i)
+                    page_doc.save(ignore_permissions = True)
 
             except Exception as e:
                 frappe.log_error("read_page_module_path",frappe.get_traceback())
