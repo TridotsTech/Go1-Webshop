@@ -376,15 +376,19 @@ def insert_custom_fields(theme):
 
 def create_builder_component(param):
     try:
-        if not frappe.db.exists({"doctype": param['doctype'], "name": param['component_name']}):
+        if not frappe.db.exists({"doctype": param['doctype'], "name": param['component_id']}):
             frappe.get_doc(param).insert(ignore_permissions=True)
         else:
-            doc = frappe.get_doc(param['doctype'], param['component_name'])
+            doc = frappe.get_doc(param['doctype'], param['component_id'])
+            doc.unlock()
             doc.update(param)
             doc.save(ignore_permissions = True)
         frappe.db.commit()
+    except frappe.exceptions.DocumentLockedError:
+        frappe.log_error("frappe.exceptions.DocumentLockedError", frappe.get_traceback())
+        pass
     except Exception as e:
-        frappe.log_error(frappe.get_traceback(), "create_builder_component_error")
+        frappe.log_error("create_builder_component_error", frappe.get_traceback())
 
 
 def read_page_module_path(out):
@@ -410,6 +414,8 @@ def read_page_module_path(out):
                             frappe.db.commit()
                 else:
                     page_doc = frappe.get_doc(i.get('doctype'), {"page_title": i.get('page_title')})
+                    if i["name"]:
+                        del i["name"]
                     page_doc.update(i)
                     page_doc.save(ignore_permissions = True)
 
