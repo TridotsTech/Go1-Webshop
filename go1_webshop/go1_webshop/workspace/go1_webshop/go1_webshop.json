@@ -5,9 +5,14 @@
    "label": "Sales Order Trends"
   }
  ],
- "content": "[{\"id\":\"Fk7NbDhaCA\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Open <strong>Go1 Webshop Settings</strong>\",\"col\":9}},{\"id\":\"izy3qGHF-_\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Customers\",\"col\":4}},{\"id\":\"62Mw17GP5R\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Annual Sales\",\"col\":4}},{\"id\":\"Yf3aSmd-NB\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Sales Orders to Bill\",\"col\":4}},{\"id\":\"p58jwAX8pQ\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Sales Orders to Deliver\",\"col\":4}},{\"id\":\"hCqhWjttfs\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Outgoing Bills\",\"col\":4}},{\"id\":\"b2D78rtlNj\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Sales Order Trends\",\"col\":12}},{\"id\":\"9Q6nNmy2ly\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quick Links</span>\",\"col\":12}},{\"id\":\"NcaMrviFQg\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item Group\",\"col\":3}},{\"id\":\"3opNgE_yuJ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item\",\"col\":3}},{\"id\":\"Or5w9ZzLOX\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Website Item\",\"col\":3}},{\"id\":\"reOTKGL--1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"id\":\"CeGhZhvVja\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Order\",\"col\":3}},{\"id\":\"Wwy2avj6FE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice\",\"col\":3}},{\"id\":\"rTWnlsX35C\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer\",\"col\":3}},{\"id\":\"euzPqiIJpb\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Contact\",\"col\":3}},{\"id\":\"25WXkQfysI\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Settings</span>\",\"col\":12}},{\"id\":\"-DFERRN5yQ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Go1 Webshop Settings\",\"col\":3}},{\"id\":\"nDzzTxBJLr\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Webshop Settings\",\"col\":3}},{\"id\":\"Q9xD7g8ait\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Selling Settings\",\"col\":3}},{\"id\":\"R_JjFxdpQq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Builder Settings\",\"col\":3}},{\"id\":\"zXrxQsocq1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Builder</b></span>\",\"col\":12}},{\"id\":\"BQ1cYRPtyq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Builder Page\",\"col\":3}},{\"id\":\"Tmg6hd2Sr9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Builder Settings\",\"col\":3}},{\"id\":\"p5KVVvChnj\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Builder Component\",\"col\":3}},{\"id\":\"6u5tlbcpNk\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Builder Client Script\",\"col\":3}}]",
+ "content": "[{\"id\":\"rfdw9FaPlG\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Explore Go1 Webshop Themes\",\"col\":12}},{\"id\":\"izy3qGHF-_\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Customers\",\"col\":4}},{\"id\":\"62Mw17GP5R\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Annual Sales\",\"col\":4}},{\"id\":\"Yf3aSmd-NB\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Sales Orders to Bill\",\"col\":4}},{\"id\":\"p58jwAX8pQ\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Sales Orders to Deliver\",\"col\":4}},{\"id\":\"hCqhWjttfs\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Outgoing Bills\",\"col\":4}},{\"id\":\"b2D78rtlNj\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Sales Order Trends\",\"col\":12}},{\"id\":\"9Q6nNmy2ly\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quick Links</span>\",\"col\":12}},{\"id\":\"NcaMrviFQg\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item Group\",\"col\":3}},{\"id\":\"3opNgE_yuJ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Item\",\"col\":3}},{\"id\":\"Or5w9ZzLOX\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Website Item\",\"col\":3}},{\"id\":\"reOTKGL--1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"id\":\"CeGhZhvVja\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Order\",\"col\":3}},{\"id\":\"Wwy2avj6FE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice\",\"col\":3}},{\"id\":\"rTWnlsX35C\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer\",\"col\":3}},{\"id\":\"euzPqiIJpb\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Contact\",\"col\":3}},{\"id\":\"25WXkQfysI\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Settings</span>\",\"col\":12}},{\"id\":\"-DFERRN5yQ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Go1 Webshop Settings\",\"col\":3}},{\"id\":\"nDzzTxBJLr\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Webshop Settings\",\"col\":3}},{\"id\":\"Q9xD7g8ait\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Selling Settings\",\"col\":3}},{\"id\":\"R_JjFxdpQq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Builder Settings\",\"col\":3}},{\"id\":\"zXrxQsocq1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Builder</b></span>\",\"col\":12}},{\"id\":\"BQ1cYRPtyq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Builder Page\",\"col\":3}},{\"id\":\"Tmg6hd2Sr9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Builder Settings\",\"col\":3}},{\"id\":\"p5KVVvChnj\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Builder Component\",\"col\":3}},{\"id\":\"6u5tlbcpNk\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Builder Client Script\",\"col\":3}}]",
  "creation": "2024-08-30 14:02:39.826697",
- "custom_blocks": [],
+ "custom_blocks": [
+  {
+   "custom_block_name": "Explore Go1 Webshop Themes",
+   "label": "Explore Go1 Webshop Themes"
+  }
+ ],
  "docstatus": 0,
  "doctype": "Workspace",
  "for_user": "",
@@ -18,7 +23,7 @@
  "is_hidden": 0,
  "label": "Go1 Webshop",
  "links": [],
- "modified": "2024-09-29 13:54:56.422461",
+ "modified": "2024-10-15 15:34:21.809060",
  "modified_by": "Administrator",
  "module": "Go1 Webshop",
  "name": "Go1 Webshop",
@@ -79,13 +84,6 @@
    "label": "Contact",
    "link_to": "Contact",
    "stats_filter": "[]",
-   "type": "DocType"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Open <strong>Go1 Webshop Settings</strong>",
-   "link_to": "Go1 Webshop Settings",
    "type": "DocType"
   },
   {

@@ -285,6 +285,156 @@ class ErpSettings(Document):
 		return is_installed
 
 
+
+# Updated By Abishek on 17-10-2024
+	def get_global_default_currency(self):
+		return frappe.defaults.get_global_default("currency")
+
+
+	def get_quotation_detail_page_details(self, data):
+		b_currency = frappe.defaults.get_global_default("currency")
+		order_id = frappe.form_dict.orderId or "SAL-QTN-2024-00021"
+		quotation_details = frappe.get_doc(
+											"Quotation", 
+											order_id, 
+											filters = {'owner': frappe.session.user},
+											fields = ["total", "name", "transaction_date", "status", "grand_total"]
+										)
+		order_id = quotation_details.name
+		data.update({
+						"order_total_list": frappe.utils.fmt_money(f"{quotation_details.total:.2f}", currency = b_currency),
+						"order_id": order_id,
+						"transaction_date": quotation_details.transaction_date,
+						"status": quotation_details.status, 
+						"grand_total":frappe.utils.fmt_money(quotation_details.grand_total,currency = b_currency), 
+						"total_qty": int(quotation_details.total_qty)
+					})
+
+		order_items = frappe.db.sql(""" SELECT QI.item_code, QI.item_name, Q.grand_total,
+											QI.qty, QI.rate, QI.amount, item.website_image AS image
+										FROM `tabQuotation Item` QI
+										INNER JOIN `tabQuotation` Q ON Q.name = QI.parent
+										INNER JOIN `tabWebsite Item` item ON item.item_code = QI.item_code
+										WHERE Q.name = %s
+									""", order_id, as_dict = True)
+		quotation_detail_list = []
+
+		for idx, item in enumerate(order_items, start = 1):
+			order_item_dict = {
+								"total":frappe.utils.fmt_money(quotation_details.total, currency = b_currency),
+								"item_name": item['item_name'],
+								"item_code":item["item_code"],
+								"transaction_date": quotation_details.transaction_date,
+								"quantity": int(item['qty']),
+								"rate": frappe.utils.fmt_money(f"{item['rate']:.2f}", currency = b_currency),
+								"image": item.get('image') if item.get('image') else "/files/gf_no_image.png",
+								"amount": frappe.utils.fmt_money(f"{item['amount']:.2f}", currency = b_currency),
+								"total_qty" : int(item['qty']),
+								"grand_total" : frappe.utils.fmt_money(f"{item['grand_total']:.2f}", currency = b_currency)
+							}
+			
+			quotation_detail_list.append(order_item_dict)
+		data.update({"quotation_details": quotation_detail_list})
+		return data
+
+
+	def get_order_list_page_details(self, data):
+		b_currency = frappe.defaults.get_global_default("currency")
+		order_id = frappe.form_dict.orderId or "SAL-ORD-2024-00001"
+
+		order_details = frappe.get_doc(
+      									"Sales Order", 
+               							order_id, 
+                      					filters = {'owner': frappe.session.user}, 
+                           				fields = ["total", "name", "delivery_date", "status"]
+									)
+		order_id = order_details.name
+		data.update({
+      					"order_total_list": frappe.utils.fmt_money(f"{order_details.total:.2f}", currency = b_currency),
+           				"order_id": order_id,
+               			"delivery_date": order_details.delivery_date,
+                  		"status": order_details.status, 
+						"grand_total":frappe.utils.fmt_money(order_details.grand_total, currency = b_currency), 
+      					"total_qty": int(order_details.total_qty)
+					})
+		order_items = frappe.db.sql("""	SELECT soi.item_code, soi.item_name, so.grand_total, so.total_qty, 
+                              				soi.delivery_date, soi.qty, soi.rate, soi.amount,item.website_image AS image
+										FROM `tabSales Order Item` soi
+										INNER JOIN `tabSales Order` so ON so.name = soi.parent
+										INNER JOIN `tabWebsite Item` item ON item.item_code = soi.item_code
+										WHERE so.name = %s
+									""", order_id, as_dict=True)
+		order_details_list = []
+
+		for idx, item in enumerate(order_items, start = 1):
+			order_item_dict = {
+								"total":frappe.utils.fmt_money(order_details.total, currency = b_currency),
+								"item_name": item['item_name'],
+								"item_code":item["item_code"],
+								"delivery_date": item['delivery_date'],
+								"quantity": int(item['qty']),
+								"rate": frappe.utils.fmt_money(f"{item['rate']:.2f}", currency = b_currency),
+								"image": item.get('image') if item.get('image') else "/files/gf_no_image.png" ,
+								"amount": frappe.utils.fmt_money(f"{item['amount']:.2f}", currency = b_currency),
+								"total_qty" : int(item['total_qty']),
+								"grand_total" : frappe.utils.fmt_money(f"{item['grand_total']:.2f}", currency = b_currency)
+							}
+			
+			order_details_list.append(order_item_dict)
+		data.update({"order_details": order_details_list})
+		return data
+
+
+	def get_order_list_page_details(self):
+		try:
+			b_currency = frappe.defaults.get_global_default("currency")
+			orders = []
+			sales_orders = frappe.get_all(
+											"Sales Order",  
+											filters = {'owner':frappe.session.user}, 
+											fields = ["name", "delivery_date", "total", "status"], 
+											order_by = 'creation desc'
+										)
+			for order in sales_orders:
+				order_items = frappe.get_all("Sales Order Item", filters={"parent": order.name}, fields=[ "item_name"])
+				order_dict = {
+					"name": order.name,
+					"delivery_date": order.delivery_date,
+					"total": frappe.utils.fmt_money(f"{order.total:.2f}", currency = b_currency),
+					"status": order.status,
+					"items_text": ", ".join(item["item_name"] for item in order_items)
+				}
+				orders.append(order_dict)
+			return orders
+		except:
+			frappe.log_error("Error in erp_settings.get_order_list_page_details", frappe.get_traceback())
+
+
+	def get_quotation_list_page_details(self):
+		quotation_list = frappe.get_all(
+											"Quotation",  
+											filters = {"quotation_to": "Customer", "party_name": frappe.session.user, "order_type": "Shopping Cart"}, 
+											fields = ["name", "transaction_date", "total", "status"], 
+											order_by = 'creation desc'
+										)
+		quotation_details = []
+		if quotation_list:
+			for quotation in quotation_list:
+				quotation_items = frappe.get_all("Quotation Item", filters={"parent": quotation.name}, fields=["item_name"])
+				item_names_string = ", ".join(item["item_name"] for item in quotation_items)
+				quotation_dict = {
+					"name": quotation.name,
+					"delivery_date": quotation.delivery_date,
+					"total": f"{quotation.total:.2f}",
+					"status": quotation.status,
+					"items_text": item_names_string
+				}
+				quotation_details.append(quotation_dict)
+		return quotation_details
+
+# End
+
+
 def get_external_url_details(file_name, api_name):
 	webshop_theme_settings = frappe.get_single("Go1 Webshop Theme Settings")
 	headers = {}
