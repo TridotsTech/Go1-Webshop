@@ -293,7 +293,7 @@ class ErpSettings(Document):
 
 	def get_quotation_detail_page_details(self, data):
 		b_currency = frappe.defaults.get_global_default("currency")
-		order_id = frappe.form_dict.orderId or "SAL-QTN-2024-00021"
+		order_id = frappe.form_dict.orderId
 		quotation_details = frappe.get_doc(
 											"Quotation", 
 											order_id, 
@@ -340,7 +340,7 @@ class ErpSettings(Document):
 
 	def get_order_list_page_details(self, data):
 		b_currency = frappe.defaults.get_global_default("currency")
-		order_id = frappe.form_dict.orderId or "SAL-ORD-2024-00001"
+		order_id = frappe.form_dict.orderId
 
 		order_details = frappe.get_doc(
       									"Sales Order", 
