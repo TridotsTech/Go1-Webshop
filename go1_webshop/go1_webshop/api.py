@@ -13,6 +13,7 @@ def currency(amount):
 
 @frappe.whitelist()
 def logout_customer():
+	frappe.log_error('hit')
 	frappe.local.cookie_manager.delete_cookie('sid')
 	frappe.local.cookie_manager.delete_cookie('user_id')
 	return {"status":"Success"}
@@ -87,8 +88,7 @@ def insert_doc(**data):
         user = ""
         if data.get('data').get('doctype') == "Comment":
             user = frappe.session.user
-            data['data']['comment_by'] = user
-        
+            data['data']['comment_by'] = user        
         if data:
             insert_doc = frappe.get_doc({"doctype": data.get('data').get('doctype')})
             insert_doc.update(data.get('data'))
@@ -248,14 +248,16 @@ def update_global_script_builder_page(doc,method):
 
 
 @frappe.whitelist()
-def insert_theme_register(full_name = None, email = None, phone = None):
+def insert_theme_register(full_name = None, email = None, phone = None, password = None):
 	payload = {
 				"full_name": full_name,
 				"email": email,
-				"phone":phone
+				"phone":phone,
+				"password":password
 			}
 	from go1_webshop.go1_webshop.doctype.erp_settings.erp_settings import get_external_url_details
 	external_url_details = get_external_url_details("api", "insert_go1_theme_registration")
+	frappe.log_error("external_url_details",external_url_details)
 	try:
 		response = requests.post(
 									external_url_details.get("external_url"),

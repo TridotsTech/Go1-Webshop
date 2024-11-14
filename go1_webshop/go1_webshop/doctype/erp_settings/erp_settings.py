@@ -10,7 +10,7 @@ from webshop.webshop.doctype.override_doctype.item_group import WebshopItemGroup
 # from webshop.webshop.api import get_product_filter_data
 from go1_webshop.go1_webshop.api import get_product_filter_data
 class ErpSettings(Document):
-	def get_item_list(self,item_group,attribute_filters,sort_by=None,start=None):
+	def get_item_lists(self,item_group,attribute_filters,sort_by=None,start=None):
 		try:
 			attribute_filters = json.loads(attribute_filters) if attribute_filters else ""
 			query_args={"field_filters":{},"attribute_filters": attribute_filters,
@@ -72,6 +72,10 @@ class ErpSettings(Document):
 	def redirect_page(self,page):
 		frappe.local.flags.redirect_location = page
 		raise frappe.Redirect
+	
+	def redirect_to_404(self):
+		frappe.local.flags.redirect_location = "/404"
+		raise frappe.Redirect
 
 	def get_item_reviews(self,website_item):
 		from webshop.webshop.doctype.item_review.item_review import get_item_reviews as _get_item_reviews
@@ -93,7 +97,7 @@ class ErpSettings(Document):
 				reviews_data.stars_percetange["star4"] = reviews_data.stars_percetange["star4"]+1
 			if (x.rating*5) == 5:
 				reviews_data.stars_percetange["star5"] = reviews_data.stars_percetange["star5"]+1
-		if reviews_data.total_reviews>0:
+		if reviews_data.total_reviews and reviews_data.total_reviews > 0:
 			reviews_data.stars_percetange["star1"] = int((reviews_data.stars_percetange["star1"]/reviews_data.total_reviews)*100)
 			reviews_data.stars_percetange["star2"] = int((reviews_data.stars_percetange["star2"]/reviews_data.total_reviews)*100)
 			reviews_data.stars_percetange["star3"] = int((reviews_data.stars_percetange["star3"]/reviews_data.total_reviews)*100)
@@ -140,12 +144,13 @@ class ErpSettings(Document):
 
 
 	def get_cart_count(self, user_name = None, item_code = None):
+		cart_count = 0
 		if user_name:
 			if frappe.db.exists("Quotation", {"status":"Draft", "quotation_to": "Customer", "party_name": user_name}):
 				quotation_doc = frappe.db.get_value("Quotation", {"status":"Draft", "quotation_to": "Customer", "party_name": user_name}, "name")
 				if frappe.db.exists("Quotation Item", {"parent": quotation_doc, "item_code": item_code}):
 					cart_count = int(frappe.db.get_value("Quotation Item", {"parent": quotation_doc, "item_code": item_code}, "qty"))
-					return cart_count
+		return cart_count
 		   
 
 	def get_item_recomemented_items(self,website_item,page_length=12,user_name=None):
@@ -244,8 +249,6 @@ class ErpSettings(Document):
 			response.raise_for_status()
 			themes = response.json()
 			return themes.get('message', [])
-		except requests.exceptions.RequestException as e:
-			frappe.throw(_('Error in erp_settings.get_template_category_details').format(str(e)))
 		except:
 			frappe.log_error("Error in erp_settings.get_template_category_details", frappe.get_traceback())
 
@@ -434,6 +437,8 @@ class ErpSettings(Document):
 
 # End
 
+# "Authorization": f"token 28379e412dd61a7:ce3ff02c42a3fec" Live Data
+# f"token e58a3d8191a049a:a8bdcb5145c45f8 Local Data
 
 def get_external_url_details(file_name, api_name):
 	webshop_theme_settings = frappe.get_single("Go1 Webshop Theme Settings")
