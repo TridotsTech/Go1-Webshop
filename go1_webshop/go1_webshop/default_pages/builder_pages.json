@@ -1,6 +1,5 @@
 [    
     {
-        "name": "page-cd854109",
         "published": 1,
         "page_name": "page-cd854109",
         "route": "installed-themes",
@@ -15,7 +14,6 @@
         "client_scripts": []
     },   
     {
-        "name": "page-7cf11036",  
         "published": 1,
         "page_name": "page-7cf11036",
         "route": "theme/<route>",
@@ -35,7 +33,6 @@
         ]
     },   
     {
-        "name": "page-8c843a8c",   
         "published": 1,
         "page_name": "page-8c843a8c",
         "route": "browse-go1-themes",
@@ -50,7 +47,6 @@
         "client_scripts": []
     },
     {
-        "name": "page-09d1b812", 
         "published": 1,
         "page_name": "page-09d1b812",
         "route": "go1-registration",
