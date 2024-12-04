@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Explore Go1 Webshop Themes",
+        "private": 0,
+        "html": "<div class=\"btn_div\">\n    <button class=\"explore_theme\">\n        <a class=\"explore_theme btn\" style=\"text-decoration: none;\" href=\"/browse-go1-themes\">\n            Explore \n            <strong>\n                Go1 Webshop Themes\n            </strong>\n        </a>\n    </button>\n</div>\n",
+        "style": ".explore_theme{\n    background-color:white;\n    padding:5px;\n    border-radius: 12px;\n}",
+        "doctype": "Custom HTML Block",
+        "roles": []
+    }
+]

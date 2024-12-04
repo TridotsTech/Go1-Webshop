@@ -67,9 +67,23 @@ def handle_specific_endpoint(values):
 @frappe.whitelist(allow_guest=True)
 def after_install():
     insert_custom_fields()
+    insert_custom_block()
     # insert_component()
     get_theme()
+    
 
+
+
+@frappe.whitelist(allow_guest=True)
+def insert_custom_block():
+    source_path = frappe.get_app_path("go1_webshop")
+    file_path = os.path.join(source_path, "templates/js", "custom_html_block.json")
+    data = json.load(open(file_path,"r"))
+    if not frappe.db.exists(data[0].get("doctype"),data[0].get("name")):
+        doc = frappe.new_doc(data[0].get("doctype"))
+        doc.update(data[0])
+        doc.insert(ignore_permissions=True,ignore_mandatory = True)
+        frappe.db.commit()
 
 
 @frappe.whitelist(allow_guest=True)
@@ -147,7 +161,7 @@ def read_file_path(folder_path, file_name):
                 for k in data:
                     if k['doctype'] == "Builder Client Script":
                         if not frappe.db.exists({"doctype": k.get('doctype'), "name": k.get('name')}):
-                            script_doc = frappe.get_doc(k).insert(ignore_permissions=True)
+                            script_doc = frappe.get_doc(k).insert(ignore_permissions=True,ignore_mandatory = True)
                             frappe.db.sql("""UPDATE `tabBuilder Client Script` SET name=%(c_name)s WHERE name=%(s_name)s""", {"c_name": k.get('name'), "s_name": script_doc.name})
                             frappe.db.commit()
                         else:
@@ -171,7 +185,7 @@ def get_theme():
             doc.theme_name = theme["theme_name"]
             doc.theme_image = theme["theme_image"]
             doc.theme_route = theme["theme_route"]
-            doc.insert()
+            doc.insert(ignore_permissions = True,ignore_mandatory = True)
             frappe.db.commit()
 
 
@@ -341,9 +355,9 @@ def insert_custom_fields(theme, nodata = None):
                 try:
                     if isinstance(j, dict):
                         if j['doctype'] == "Go1 Webshop Theme" and not frappe.db.exists({"doctype": j['doctype'], "name": j['name']}):
-                            frappe.get_doc(j).insert(ignore_permissions=True)
+                            frappe.get_doc(j).insert(ignore_permissions=True,ignore_mandatory = True)
                         if j['doctype'] == "Builder Settings":
-                            frappe.get_doc(j).insert(ignore_permissions=True)
+                            frappe.get_doc(j).insert(ignore_permissions=True,ignore_mandatory = True)
 
                     if isinstance(j, list):                       
                         for k in j:                                                                 
@@ -352,17 +366,17 @@ def insert_custom_fields(theme, nodata = None):
                                 if k['doctype'] == "Builder Component":
                                     create_builder_component(k)
                                 elif k['doctype'] == "Builder Client Script" and not frappe.db.exists({"doctype": k.get('doctype'), "name": k.get('name')}):
-                                    script_doc = frappe.get_doc(k).insert(ignore_permissions=True)
+                                    script_doc = frappe.get_doc(k).insert(ignore_permissions=True,ignore_mandatory = True)
                                     frappe.db.sql("""UPDATE `tabBuilder Client Script` SET name=%(c_name)s WHERE name=%(s_name)s""", {"c_name": k.get('name'), "s_name": script_doc.name})
                                     frappe.db.commit()
                                 elif k['doctype'] == "Custom Field" and not frappe.db.exists({"doctype": k['doctype'], "name": k['name']}):
-                                    frappe.get_doc(k).insert(ignore_permissions=True)
+                                    frappe.get_doc(k).insert(ignore_permissions=True,ignore_mandatory = True)
                                 elif k['doctype'] == "Item Group" and not frappe.db.exists({"doctype": k['doctype'], "name": k['item_group_name']}):
-                                    frappe.get_doc(k).insert(ignore_permissions=True)
+                                    frappe.get_doc(k).insert(ignore_permissions=True,ignore_mandatory = True)
                                 elif k['doctype'] == "Mobile Menu" and not frappe.db.exists({"doctype": k['doctype'], "name": k['name']}):
-                                    frappe.get_doc(k).insert(ignore_permissions=True)
+                                    frappe.get_doc(k).insert(ignore_permissions=True,ignore_mandatory = True)
                                 elif k['doctype'] == "Website Slideshow" and not frappe.db.exists({"doctype": k['doctype'], "name": k['slideshow_name']}):
-                                    frappe.get_doc(k).insert(ignore_permissions=True)
+                                    frappe.get_doc(k).insert(ignore_permissions=True,ignore_mandatory = True)
                                 elif k['doctype'] == "Item" and not frappe.db.exists({"doctype": k['doctype'], "name": k['name']}):
                                     insert_item_data(j)
                                 elif k['doctype'] == "Website Item" and not frappe.db.exists({"doctype": k['doctype'], "name": k['name']}):
@@ -380,12 +394,12 @@ def insert_custom_fields(theme, nodata = None):
 def create_builder_component(param):
     try:
         if not frappe.db.exists({"doctype": param['doctype'], "name": param['component_id']}):
-            frappe.get_doc(param).insert(ignore_permissions=True)
+            frappe.get_doc(param).insert(ignore_permissions=True,ignore_mandatory = True)
         else:
             doc = frappe.get_doc(param['doctype'], param['component_id'])
             doc.unlock()
             doc.update(param)
-            doc.save(ignore_permissions = True)
+            doc.save(ignore_permissions = True,ignore_mandatory = True)
         frappe.db.commit()
     except frappe.exceptions.DocumentLockedError:
         frappe.log_error("frappe.exceptions.DocumentLockedError", frappe.get_traceback())
@@ -404,7 +418,7 @@ def read_page_module_path(out):
                     del i['client_scripts']
                 if not frappe.db.exists({"doctype": i.get('doctype'), "page_title": i.get('page_title')}):
                  
-                    page_doc = frappe.get_doc(i).insert(ignore_permissions = True)
+                    page_doc = frappe.get_doc(i).insert(ignore_permissions = True,ignore_mandatory = True)
 
                     frappe.db.set_value(i.get('doctype'), page_doc.name, 'route', i.get('route'))
                     
@@ -449,7 +463,7 @@ def insert_item_data(out):
                 if "india_compliance" in frappe.get_installed_apps() and i.get('doctype') == "Item":
                     i["gst_hsn_code"] = "999900"
         
-                frappe.get_doc(i).insert(ignore_permissions=True)
+                frappe.get_doc(i).insert(ignore_permissions=True,ignore_mandatory = True)
             
                 if i.get('doctype') == "Website Item":
                     price_doc = frappe.new_doc("Item Price")
