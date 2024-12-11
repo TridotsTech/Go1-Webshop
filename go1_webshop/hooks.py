@@ -51,7 +51,8 @@ doc_events = {
 
 
 after_migrate = [
-	"go1_webshop.go1_webshop.after_install.insert_theme_selection_details"
+	"go1_webshop.go1_webshop.after_install.insert_theme_selection_details",
+    "go1_webshop.go1_webshop.after_install.insert_custom_block"
 ]
 
 # fixtures = [

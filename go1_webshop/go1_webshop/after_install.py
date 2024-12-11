@@ -67,7 +67,6 @@ def handle_specific_endpoint(values):
 @frappe.whitelist(allow_guest=True)
 def after_install():
     insert_custom_fields()
-    insert_custom_block()
     # insert_component()
     get_theme()
     
@@ -329,8 +328,7 @@ def insert_custom_fields(theme, nodata = None):
                             frappe.log_error(f"Error while creating folder: {e}", frappe.get_traceback())
                             continue
 
-                    try:
-                        frappe.log_error("JJJJJJJJJJJJJJJJJJJ", j)          
+                    try:         
                         with urlopen(j) as data, open(file_path, 'wb') as zip_ref:
                             shutil.copyfileobj(data, zip_ref)                                                 
                         with zipfile.ZipFile(file_path, 'r') as file_data:                        
