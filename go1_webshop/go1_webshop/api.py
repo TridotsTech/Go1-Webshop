@@ -278,6 +278,36 @@ def insert_theme_register(full_name = None, email = None, phone = None, password
 	except:
 		frappe.log_error("Error in api.insert_theme_register", frappe.get_traceback())
 
+@frappe.whitelist()
+def login_theme_registration(email = None, password = None):
+	payload = {
+				"usr": email,
+				"pwd":password
+			}
+	from go1_webshop.go1_webshop.doctype.erp_settings.erp_settings import get_external_url_details
+	external_url_details = get_external_url_details("api", "login_go1_theme_registration")
+	frappe.log_error("external_url_details",external_url_details)
+	try:
+		response = requests.post(
+									external_url_details.get("external_url"),
+									headers = external_url_details.get("headers"), 
+									data = json.dumps(payload)
+								)
+		response.raise_for_status()
+		themes = response.json()
+		if themes and themes.get("message"):
+			output = themes.get("message")
+			frappe.log_error("output", output)
+			if output.get("status") == "Success":
+				if output.get("message")["api_key"] and output.get("message")["api_secret"]:
+					go1_theme_settings = frappe.get_doc("Go1 Webshop Theme Settings")
+					go1_theme_settings.api_key = output.get("message")["api_key"]
+					go1_theme_settings.api_secret = output.get("message")["api_secret"]
+					go1_theme_settings.save(ignore_permissions = True)
+			return output.get("status")
+	except:
+		frappe.log_error("Error in api.insert_theme_register", frappe.get_traceback())
+
 
 @frappe.whitelist()
 def update_website_item_route(doc,method):
