@@ -13,7 +13,6 @@ def currency(amount):
 
 @frappe.whitelist()
 def logout_customer():
-	frappe.log_error('hit')
 	frappe.local.cookie_manager.delete_cookie('sid')
 	frappe.local.cookie_manager.delete_cookie('user_id')
 	return {"status":"Success"}

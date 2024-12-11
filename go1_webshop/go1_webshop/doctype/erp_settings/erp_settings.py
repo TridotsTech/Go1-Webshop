@@ -437,13 +437,11 @@ class ErpSettings(Document):
 
 # End
 
-# "Authorization": f"token 28379e412dd61a7:ce3ff02c42a3fec" Live Data
-# f"token e58a3d8191a049a:a8bdcb5145c45f8 Local Data
 
 def get_external_url_details(file_name, api_name):
 	webshop_theme_settings = frappe.get_single("Go1 Webshop Theme Settings")
 	headers = {}
-	if webshop_theme_settings.api_key and webshop_theme_settings.api_secret:
+	if webshop_theme_settings.api_key and webshop_theme_settings.api_secret and api_name != "insert_go1_theme_registration":
 		headers = {
 			"Content-Type": "application/json",
 			"Authorization": f"token {webshop_theme_settings.api_key}:{webshop_theme_settings.api_secret}"
@@ -451,7 +449,6 @@ def get_external_url_details(file_name, api_name):
 	else:
 		headers = {
 					"Content-Type": "application/json",
-					"Authorization": f"token e58a3d8191a049a:a8bdcb5145c45f8"
 				}
 	external_url = f"{webshop_theme_settings.url}/api/method/go1_webshop_theme.go1_webshop_theme.{file_name}.{api_name}"
 
