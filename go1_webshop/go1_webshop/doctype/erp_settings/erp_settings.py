@@ -119,6 +119,7 @@ class ErpSettings(Document):
 			x.discount_label = ""
 			if x.discount_percent:
 				x.discount_label = str(int(x.discount_percent))+"% OFF"
+			x.update(self.get_item_reviews(x.name))
 		return item_list
 
 
