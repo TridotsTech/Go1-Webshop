@@ -55,25 +55,8 @@ class ProductQuery:
 		        dict: Dict containing items, item count & discount range
 		"""
 		# track if discounts included in field filters
-		if not fields:
-			fields = [
-					"web_item_name",
-					"name",
-					"item_name",
-					"item_code",
-					"website_image",
-					"variant_of",
-					"has_variants",
-					"item_group",
-					"web_long_description",
-					"short_description",
-					"route",
-					"website_warehouse",
-					"ranking",
-					"on_backorder",
-				]
 		frappe.log_error("fields",fields)
-		self.filter_with_discount = bool(fields.get("discount")) 
+		self.filter_with_discount = bool(fields.get("discount")) if fields else False
 		result, discount_list, website_item_groups, cart_items, count = [], [], [], [], 0
 
 		if fields:
