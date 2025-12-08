@@ -319,5 +319,35 @@ def login_theme_registration(email = None, password = None):
 @frappe.whitelist()
 def update_website_item_route(doc,method):
 	if doc.route:
-
 		doc.route = doc.route.replace("/","-")
+
+@frappe.whitelist(allow_guest=True)
+def insert_customer(first_name,email,mobile_no,new_password):
+	if frappe.db.get_all("Customer",filters={"email_id":email}):
+		return {"status":"Failed","message":"Email Id is already registered."}
+	if frappe.db.get_all("Customer",filters={"mobile_no":mobile_no}):
+		return {"status":"Failed","message":"Mobile No is already registered."}
+	customer_doc = frappe.new_doc("Customer")
+	customer_doc.customer_name = first_name
+	customer_doc.custom_phone_number = mobile_no
+	customer_doc.save(ignore_permissions=True)
+	contact_doc = frappe.new_doc("Contact")
+	contact_doc.first_name = first_name
+	contact_doc.email_id = email
+	contact_doc.mobile_no = mobile_no
+	contact_doc.is_primary_contact = 1
+	contact_doc.append("email_ids",{"email_id":email,"is_primary":1})
+	contact_doc.append("phone_nos",{"phone":mobile_no,"is_primary_mobile_no":1})
+	contact_doc.append("links",{"link_doctype":"Customer","link_name":customer_doc.name})
+	contact_doc.save(ignore_permissions=True)
+	user_doc = frappe.new_doc("User")
+	user_doc.email = email
+	user_doc.first_name = first_name
+	user_doc.mobile_no = mobile_no
+	user_doc.new_password = new_password
+	user_doc.save(ignore_permissions=True)
+	customer_doc.append("portal_users",{"user":user_doc.name})
+	customer_doc.customer_primary_contact = contact_doc.name
+	customer_doc.save(ignore_permissions=True)
+	return {"status":"Success"}
+
