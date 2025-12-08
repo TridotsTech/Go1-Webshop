@@ -55,7 +55,7 @@ class ProductQuery:
 		        dict: Dict containing items, item count & discount range
 		"""
 		# track if discounts included in field filters
-		if fields is None:
+		if not fields:
 			fields = [
 					"web_item_name",
 					"name",
