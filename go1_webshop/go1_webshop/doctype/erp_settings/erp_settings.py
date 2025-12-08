@@ -30,6 +30,10 @@ class ErpSettings(Document):
 					x.discount_label = ""
 					if x.discount_percent:
 						x.discount_label = str(int(x.discount_percent))+"% OFF"
+					if x.discount and not x.discount_percent:
+						discount_amount = float(x.discount.replace("₹","").replace(",",""))
+						x.discount_percent  = (discount_amount/float(x.formatted_mrp.replace("₹","").replace(",","")))*100
+						x.discount_label = str(int(x.discount_percent))+"% OFF"
 				return category_data
 			else:
 				return []
