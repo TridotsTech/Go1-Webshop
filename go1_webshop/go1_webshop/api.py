@@ -179,6 +179,14 @@ def get_product_filter_data(query_args=None):
 	engine = ProductQuery()
 
 	try:
+		frappe.log_error("query_parmas",{
+			"attribute_filters":attribute_filters,
+			"field_filters":field_filters,
+			"search_term":search,
+			"start":start,
+			"item_group":item_group,
+			"sort_by":sort_by
+			})
 		result = engine.query(
 			attribute_filters,
 			field_filters,
@@ -311,4 +319,5 @@ def login_theme_registration(email = None, password = None):
 @frappe.whitelist()
 def update_website_item_route(doc,method):
 	if doc.route:
+
 		doc.route = doc.route.replace("/","-")
