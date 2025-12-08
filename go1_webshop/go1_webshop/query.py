@@ -56,7 +56,9 @@ class ProductQuery:
 		"""
 		# track if discounts included in field filters
 		frappe.log_error("fields",fields)
-		self.filter_with_discount = bool(fields.get("discount"))
+		if fields is None:
+			fields = self.fields
+		self.filter_with_discount = bool(fields.get("discount")) 
 		result, discount_list, website_item_groups, cart_items, count = [], [], [], [], 0
 
 		if fields:
