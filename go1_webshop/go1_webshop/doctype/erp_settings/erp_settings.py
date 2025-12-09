@@ -84,7 +84,9 @@ class ErpSettings(Document):
 	def get_item_reviews(self,website_item):
 		from webshop.webshop.doctype.item_review.item_review import get_item_reviews as _get_item_reviews
 		reviews_data =  _get_item_reviews(website_item)
+		frappe.log_error("reviews_data",reviews_data)
 		reviews_data["reviews"] = frappe.db.get_all("Item Review",filters={"website_item":website_item},fields=['*'])
+		frappe.log_error("reviews_data1",reviews_data)
 		if reviews_data.get("reviews"):
 			for x in reviews_data.get("reviews"):
 				x.rating_value = x.rating*5
