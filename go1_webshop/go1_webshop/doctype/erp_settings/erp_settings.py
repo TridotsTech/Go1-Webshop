@@ -14,7 +14,7 @@ class ErpSettings(Document):
 		try:
 			attribute_filters = json.loads(attribute_filters) if attribute_filters else ""
 			query_args={"field_filters":field_filters,"attribute_filters": attribute_filters,
-						"item_group":item_group,"start":None,"from_filters":False,"start":start}
+						"item_group":item_group,"from_filters":False,"start":start}
 			sort_value = ""
 			if sort_by:
 				if sort_by == "name_asc":
