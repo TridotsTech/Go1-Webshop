@@ -13,7 +13,6 @@ class ErpSettings(Document):
   def get_item_lists(self,item_group,attribute_filters,field_filters={},sort_by=None,start=None):
     try:
       attribute_filters = json.loads(attribute_filters) if attribute_filters else ""
-      frappe.log_error("query_args_before",start)
       query_args={"field_filters":field_filters,"attribute_filters": attribute_filters,
             "item_group":item_group,"from_filters":False,"start":start}
       sort_value = ""
