@@ -150,6 +150,7 @@ def get_product_filter_data(query_args=None):
 		item_group (str): Valid Item Group
 		from_filters (bool): Set as True to jump to page 1
 	"""
+	frappe.log_error("query_args",query_args)
 	if isinstance(query_args, str):
 		query_args = json.loads(query_args)
 
@@ -179,14 +180,6 @@ def get_product_filter_data(query_args=None):
 	engine = ProductQuery()
 
 	try:
-		frappe.log_error("query_parmas",{
-			"attribute_filters":attribute_filters,
-			"field_filters":field_filters,
-			"search_term":search,
-			"start":start,
-			"item_group":item_group,
-			"sort_by":sort_by
-			})
 		result = engine.query(
 			attribute_filters,
 			field_filters,
@@ -350,4 +343,3 @@ def insert_customer(first_name,email,mobile_no,new_password):
 	customer_doc.customer_primary_contact = contact_doc.name
 	customer_doc.save(ignore_permissions=True)
 	return {"status":"Success"}
-
