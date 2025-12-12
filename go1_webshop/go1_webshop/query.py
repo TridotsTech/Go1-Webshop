@@ -152,7 +152,7 @@ class ProductQuery:
             attr_query = """ 
                             SELECT 
                                 variant_of AS item_code
-                                FROM `tabItem Variant Attribute` WHERE {0}
+                                FROM `tabItem Variant Attribute` WHERE {0} GROUP BY variant_of
                          """.format(condition)
             frappe.log_error("attr_query",attr_query)
             # item_codes.append({x.item_code for x in item_code_list})
