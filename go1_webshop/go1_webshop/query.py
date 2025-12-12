@@ -135,18 +135,27 @@ class ProductQuery:
         for attribute, values in attributes.items():
             if not isinstance(values, list):
                 values = [values]
-
+            condition = ""
             # get items that have selected attribute & value
-            item_code_list = frappe.db.get_all(
-                "Item",
-                fields=["item_code"],
-                filters=[
-                    ["published_in_website", "=", 1],
-                    ["Item Variant Attribute", "attribute", "=", attribute],
-                    ["Item Variant Attribute", "attribute_value", "in", values],
-                ],
-            )
-            item_codes.append({x.item_code for x in item_code_list})
+            # item_code_list = frappe.db.get_all(
+            #     "Item",
+            #     fields=["item_code"],
+            #     filters=[
+            #         ["published_in_website", "=", 1],
+            #         ["Item Variant Attribute", "attribute", "=", attribute],
+            #         ["Item Variant Attribute", "attribute_value", "in", values],
+            #     ],
+            # )
+            for x in values:
+                condition += " (attribute='{0}' and attribute_value='{1}') OR".format(attribute,x)
+            condition = condition[:-2]
+            attr_query = """ 
+                            SELECT 
+                                variant_of AS item_code
+                                FROM `tabItem Variant Attribute` WHERE {0}
+                         """.format(condition)
+            frappe.log_error("attr_query",attr_query)
+            # item_codes.append({x.item_code for x in item_code_list})
 
         if item_codes:
             item_codes = list(set.intersection(*item_codes))
