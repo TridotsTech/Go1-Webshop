@@ -148,8 +148,9 @@ class ProductQuery:
             # )
             for x in values:
                 condition += " (attribute='{0}' and attribute_value='{1}') OR".format(attribute,x)
+            condition = condition[:-2]
             condition += ") AND "
-        condition = condition[:-2]
+        condition = condition[:-4]
         attr_query = """ 
                         SELECT 
                             variant_of AS item_code
