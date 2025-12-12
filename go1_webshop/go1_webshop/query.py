@@ -155,7 +155,8 @@ class ProductQuery:
                                 FROM `tabItem Variant Attribute` WHERE {0} GROUP BY variant_of
                          """.format(condition)
             frappe.log_error("attr_query",attr_query)
-            # item_codes.append({x.item_code for x in item_code_list})
+            item_code_list = frappe.db.sql(attr_query,as_dict=1)
+            item_codes.append({x.item_code for x in item_code_list})
 
         if item_codes:
             item_codes = list(set.intersection(*item_codes))
