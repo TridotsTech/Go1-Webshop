@@ -131,11 +131,11 @@ class ProductQuery:
     def query_items_with_attributes(self, attributes, start=0,sort_by=None):
         """Build a query to fetch Website Items based on field & attribute filters."""
         item_codes = []
-
+        condition = ""
         for attribute, values in attributes.items():
+            condition+= "( "
             if not isinstance(values, list):
                 values = [values]
-            condition = ""
             # get items that have selected attribute & value
             # item_code_list = frappe.db.get_all(
             #     "Item",
@@ -148,15 +148,16 @@ class ProductQuery:
             # )
             for x in values:
                 condition += " (attribute='{0}' and attribute_value='{1}') OR".format(attribute,x)
-            condition = condition[:-2]
-            attr_query = """ 
-                            SELECT 
-                                variant_of AS item_code
-                                FROM `tabItem Variant Attribute` WHERE {0} GROUP BY variant_of
-                         """.format(condition)
-            frappe.log_error("attr_query",attr_query)
-            item_code_list = frappe.db.sql(attr_query,as_dict=1)
-            item_codes.append({x.item_code for x in item_code_list})
+            condition += ") AND "
+        condition = condition[:-2]
+        attr_query = """ 
+                        SELECT 
+                            variant_of AS item_code
+                            FROM `tabItem Variant Attribute` WHERE {0} GROUP BY variant_of
+                     """.format(condition)
+        frappe.log_error("attr_query",attr_query)
+        item_code_list = frappe.db.sql(attr_query,as_dict=1)
+        item_codes.append({x.item_code for x in item_code_list})
 
         if item_codes:
             item_codes = list(set.intersection(*item_codes))
