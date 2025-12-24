@@ -113,9 +113,12 @@ class ErpSettings(Document):
 
 
   def get_group_items(self, item_group = None, item_code = None, user_name = None,page_length=12):
-    filters = {"item_group":item_group,"published":1}
+    # filters = {"item_group":item_group,"published":1}
+    filters = [["item_group","=",item_group],["published","=",1]]
     if item_code:
-      filters["item_code"] = ["!=", item_code]
+      # filters["item_code"] = ["!=", item_code]
+      filters.append(['item_code', '!=', item_code])
+    filters.append([['variant_of', 'in', [None, '']]])
     item_list = frappe.db.get_all("Website Item",
                     fields=["name","item_name as web_item_name","item_code","website_image","route"],
                     filters=filters,
