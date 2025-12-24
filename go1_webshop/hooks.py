@@ -191,9 +191,9 @@ after_migrate = [
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "go1_webshop.event.get_events"
-# }
+override_whitelisted_methods = {
+	"webshop.templates.pages.product_search.search": "go1_webshop.go1_webshop.product_search.search"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
