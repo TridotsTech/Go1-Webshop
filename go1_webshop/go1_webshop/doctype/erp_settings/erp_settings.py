@@ -10,11 +10,11 @@ from webshop.webshop.doctype.override_doctype.item_group import WebshopItemGroup
 # from webshop.webshop.api import get_product_filter_data
 from go1_webshop.go1_webshop.api import get_product_filter_data
 class ErpSettings(Document):
-  def get_item_lists(self,item_group,attribute_filters,field_filters={},sort_by=None,start=None):
+  def get_item_lists(self,item_group,attribute_filters,field_filters={},sort_by=None,start=None,search_term=None):
     try:
       attribute_filters = json.loads(attribute_filters) if attribute_filters else ""
       query_args={"field_filters":field_filters,"attribute_filters": attribute_filters,
-            "item_group":item_group,"from_filters":False,"start":start}
+            "item_group":item_group,"from_filters":False,"start":start,"search_term":search_term}
       sort_value = ""
       if sort_by:
         if sort_by == "name_asc":
