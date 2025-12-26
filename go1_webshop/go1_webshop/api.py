@@ -392,7 +392,7 @@ def get_variant_details(item_code,attributes):
 					""", as_dict=1)
 					if user_info and frappe.db.exists("Quotation", {"party_name": user_info[0]["name"], "order_type": "Shopping Cart", "status": "draft"}):
 						quotation_doc = frappe.db.get_value("Quotation", {"status":"Draft", "quotation_to": "Customer", "party_name": user_info[0]["name"]}, "name")
-						if frappe.db.exists("Quotation Item", {"parent": quotation_doc, "item_code": item_code}):
+						if frappe.db.exists("Quotation Item", {"parent": quotation_doc, "item_code": web_item.item_code}):
 						  context['cart_count'] = int(frappe.db.get_value("Quotation Item", {"parent": quotation_doc, "item_code": web_item.item_code}, "qty"))
 					frappe.response["message"] =  {
 						"success": "Sucess",
