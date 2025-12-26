@@ -343,3 +343,72 @@ def insert_customer(first_name,email,mobile_no,new_password):
 	customer_doc.customer_primary_contact = contact_doc.name
 	customer_doc.save(ignore_permissions=True)
 	return {"status":"Success"}
+
+@frappe.whitelist(allow_guest=True)
+def get_variant_details(item_code,attributes):
+	try:
+		item_code = frappe.form_dict.get("item_code")
+		attributes = frappe.form_dict.get("attributes")
+		args = {attr: value for attr, value in attributes.items()}
+		# Find existing variant
+		variant_item_code = None
+		variants = frappe.get_all("Item", 
+			filters={
+				"variant_of": item_code,
+				"disabled": 0
+			},
+			pluck="name"
+		)
+		for variant in variants:
+			v_attributes = frappe.get_all("Item Variant Attribute",filters={"parent": variant},order_by='idx',fields=["attribute", "attribute_value"])
+			variant_attributes = {attr.attribute: attr.attribute_value for attr in v_attributes}
+			if variant_attributes == args:
+				variant_item_code =  variant
+		if variant_item_code:
+			website_item = frappe.db.get_value("Website Item", filters={"item_code":variant_item_code})
+			if not website_item:
+				frappe.response["message"] =  {
+					"success": "Failed",
+					"message": _("No Website item found"),
+					"template_item": item_code,
+					"requested_attributes": attributes
+				}
+			frappe.log_error("website_item",website_item)
+			if website_item:
+				try:
+					
+					web_item = frappe.get_doc('Website Item', website_item)
+					context = web_item.as_dict()
+					web_item.get_context(context)
+					context['cart_count'] = 0
+					user_info = None
+					frappe.log_error("frappe.session.user",frappe.session.user)
+					if frappe.session.user!="Guest":
+						user_info = frappe.db.sql(f"""
+						SELECT C.name 
+						FROM `tabCustomer` C 
+						INNER JOIN `tabPortal User` PU ON C.name = PU.parent 
+						WHERE PU.user = '{frappe.session.user}'
+					""", as_dict=1)
+					if user_info and frappe.db.exists("Quotation", {"party_name": user_info[0]["name"], "order_type": "Shopping Cart", "status": "draft"}):
+						quotation_doc = frappe.db.get_value("Quotation", {"status":"Draft", "quotation_to": "Customer", "party_name": user_info[0]["name"]}, "name")
+						if frappe.db.exists("Quotation Item", {"parent": quotation_doc, "item_code": item_code}):
+						  context['cart_count'] = int(frappe.db.get_value("Quotation Item", {"parent": quotation_doc, "item_code": web_item.item_code}, "qty"))
+					frappe.response["message"] =  {
+						"success": "Sucess",
+						"message":context
+					}
+				except Exception:
+					frappe.log_error(title="variats_details",message=frappe.get_traceback())
+					
+			
+		else:
+			frappe.response["message"] =  {
+				"success": "Failed",
+				"message": _("No variant found for the given attributes"),
+				"template_item": item_code,
+				"requested_attributes": attributes
+			}
+	except Exception:
+		frappe.log_error(title="variats_details",message=frappe.get_traceback())
+		 
