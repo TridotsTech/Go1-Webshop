@@ -79,6 +79,7 @@ def check_items_quantity(items):
 def update_user(doc):
 	frappe.log_error("doc['last_Name']",doc["last_Name"])
 	frappe.db.set_value('User', frappe.session.user,"last_name", doc["last_Name"])
+	frappe.db.set_value('User', frappe.session.user,"user_image", doc["profile_image"])
 	frappe.db.commit()
 
 @frappe.whitelist(allow_guest=True)
@@ -425,4 +426,3 @@ def get_variant_details(item_code,attributes):
 	except Exception:
 		frappe.log_error(title="variats_details",message=frappe.get_traceback())
 		 
-
