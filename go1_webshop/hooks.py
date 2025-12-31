@@ -192,7 +192,8 @@ after_migrate = [
 # ------------------------------
 #
 override_whitelisted_methods = {
-	"webshop.templates.pages.product_search.search": "go1_webshop.go1_webshop.product_search.search"
+    "webshop.templates.pages.product_search.search": "go1_webshop.go1_webshop.product_search.search",
+	"webshop.webshop.shopping_cart.cart.add_new_address": "go1_webshop.go1_webshop.api.add_update_address"
 }
 #
 # each overriding function accepts a `data` argument;
