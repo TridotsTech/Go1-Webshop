@@ -85,29 +85,29 @@ def update_user(doc):
 
 @frappe.whitelist(allow_guest=True)
 def insert_doc(**data):
-    try:
-        user = ""
-        if data.get('data').get('doctype') == "Comment":
-            user = frappe.session.user
-            data['data']['comment_by'] = user        
-        if data:
-            insert_doc = frappe.get_doc({"doctype": data.get('data').get('doctype')})
-            insert_doc.update(data.get('data'))
-            value = insert_doc.insert(ignore_permissions=True)
-            frappe.db.commit()
-            return value
-    except Exception as e:
-        frappe.log_error("Error inserting document: " + str(e))
-        return None
+	try:
+		user = ""
+		if data.get('data').get('doctype') == "Comment":
+			user = frappe.session.user
+			data['data']['comment_by'] = user        
+		if data:
+			insert_doc = frappe.get_doc({"doctype": data.get('data').get('doctype')})
+			insert_doc.update(data.get('data'))
+			value = insert_doc.insert(ignore_permissions=True)
+			frappe.db.commit()
+			return value
+	except Exception as e:
+		frappe.log_error("Error inserting document: " + str(e))
+		return None
 
 @frappe.whitelist(allow_guest=True)
 def check_user_exists(email, password):
-    try:
-        user_exists = frappe.db.exists("User", {"email": email, "password": password})
-        return {"exists": user_exists}
-    except Exception as e:
-        frappe.log_error("Error checking user existence: {0}".format(str(e)))
-        return {"error": "An error occurred while checking user existence"}
+	try:
+		user_exists = frappe.db.exists("User", {"email": email, "password": password})
+		return {"exists": user_exists}
+	except Exception as e:
+		frappe.log_error("Error checking user existence: {0}".format(str(e)))
+		return {"error": "An error occurred while checking user existence"}
 
 @frappe.whitelist(allow_guest=True)
 def get_list(doctype,fields=["name"],filters=None,page_no=1,page_size=20,order_by="creation desc",child_fields=None):
@@ -426,4 +426,20 @@ def get_variant_details(item_code,attributes):
 			}
 	except Exception:
 		frappe.log_error(title="variats_details",message=frappe.get_traceback())
+
+@frappe.whitelist()
+def add_update_address(doc):
+	doc = frappe.parse_json(doc)
+	doc.update({"doctype": "Address"})
+	address = frappe.get_doc(doc)
+	address.save(ignore_permissions=True)
+	return_addresses = { 
+		"line1":f"{address.address_line1 if address.address_line1 else ''}, {address.address_line2  if address.address_line2 else ''}{','  if address.address_line2 else ''}",
+		"line2":f"{address.city},{address.county if address.county else ''}{',' if address.county else ''}{address.state if address.state else ''}{',' if address.state else ''}",
+		"line3":f"{address.country}{'-' if address.pincode else ''}{address.pincode if address.pincode else ''}.",
+		"address_id": f"{address.name}",
+		"delete_icon" : "/files/icons8-trash-120 (1).png",
+		"edit_icon":"/files/icons8-edit-120.png"
+	}
+	return return_addresses
 		 
