@@ -12,6 +12,22 @@ def currency(amount):
 	return "rs"+amount 
 
 @frappe.whitelist()
+def add_update_address(doc):
+	doc = frappe.parse_json(doc)
+	doc.update({"doctype": "Address"})
+	address = frappe.get_doc(doc)
+	address.save(ignore_permissions=True)
+	return_addresses = { 
+		"line1":f"{address.address_line1 if address.address_line1 else ''}, {address.address_line2  if address.address_line2 else ''}{','  if address.address_line2 else ''}",
+		"line2":f"{address.city},{address.county if address.county else ''}{',' if address.county else ''}{address.state if address.state else ''}{',' if address.state else ''}",
+		"line3":f"{address.country}{'-' if address.pincode else ''}{address.pincode if address.pincode else ''}.",
+		"address_id": f"{address.name}",
+		"delete_icon" : "/files/icons8-trash-120 (1).png",
+		"edit_icon":"/files/icons8-edit-120.png"
+	}
+	return return_addresses
+
+@frappe.whitelist()
 def logout_customer():
 	frappe.local.cookie_manager.delete_cookie('sid')
 	frappe.local.cookie_manager.delete_cookie('user_id')
@@ -426,20 +442,3 @@ def get_variant_details(item_code,attributes):
 			}
 	except Exception:
 		frappe.log_error(title="variats_details",message=frappe.get_traceback())
-
-@frappe.whitelist()
-def add_update_address(doc):
-	doc = frappe.parse_json(doc)
-	doc.update({"doctype": "Address"})
-	address = frappe.get_doc(doc)
-	address.save(ignore_permissions=True)
-	return_addresses = { 
-		"line1":f"{address.address_line1 if address.address_line1 else ''}, {address.address_line2  if address.address_line2 else ''}{','  if address.address_line2 else ''}",
-		"line2":f"{address.city},{address.county if address.county else ''}{',' if address.county else ''}{address.state if address.state else ''}{',' if address.state else ''}",
-		"line3":f"{address.country}{'-' if address.pincode else ''}{address.pincode if address.pincode else ''}.",
-		"address_id": f"{address.name}",
-		"delete_icon" : "/files/icons8-trash-120 (1).png",
-		"edit_icon":"/files/icons8-edit-120.png"
-	}
-	return return_addresses
-		 
