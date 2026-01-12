@@ -380,6 +380,7 @@ def get_variant_details(item_code,attributes):
 	try:
 		item_code = frappe.form_dict.get("item_code")
 		attributes = frappe.form_dict.get("attributes")
+		erp = frappe.get_doc('Erp Settings')
 		args = {attr: value for attr, value in attributes.items()}
 		# Find existing variant
 		variant_item_code = None
@@ -412,6 +413,7 @@ def get_variant_details(item_code,attributes):
 					context = web_item.as_dict()
 					web_item.get_context(context)
 					context['cart_count'] = 0
+					context['reviews'] = erp.get_item_reviews(web_item.name)
 					user_info = None
 					frappe.log_error("frappe.session.user",frappe.session.user)
 					if frappe.session.user!="Guest":
