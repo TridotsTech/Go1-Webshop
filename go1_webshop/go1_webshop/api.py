@@ -417,16 +417,16 @@ def get_variant_details(item_code,attributes):
 					if context.get("shopping_cart"):
 						if context.get("shopping_cart").get("product_info"):
 							if context.get("shopping_cart").get("product_info").get("price") is None:
-							context.get("shopping_cart").get("product_info")['price'] = {
-								"price_list_rate": 0.00,
-								"currency": "INR",
-								"discount_percent": 0.00,
-								"formatted_discount_percent": "0.00%",
-								"formatted_price": "₹ 0.00",
-								"formatted_mrp": "₹ 0.00",
-								"currency_symbol": "₹",
-								"formatted_price_sales_uom": "₹ 0.00"
-							}
+								context.get("shopping_cart").get("product_info")['price'] = {
+									"price_list_rate": 0.00,
+									"currency": "INR",
+									"discount_percent": 0.00,
+									"formatted_discount_percent": "0.00%",
+									"formatted_price": "₹ 0.00",
+									"formatted_mrp": "₹ 0.00",
+									"currency_symbol": "₹",
+									"formatted_price_sales_uom": "₹ 0.00"
+								}
 					user_info = None
 					frappe.log_error("frappe.session.user",frappe.session.user)
 					if frappe.session.user!="Guest":
