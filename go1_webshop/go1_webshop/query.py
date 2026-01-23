@@ -259,7 +259,6 @@ class ProductQuery:
                 "Wishlist Item", {"item_code": item.item_code, "parent": frappe.session.user}
             ):
                 item.wished = True
-
         return result, discount_list
 
     def get_price_discount_info(self, item, price_object, discount_list):
