@@ -238,28 +238,77 @@ class ProductQuery:
         for field in search_fields:
             self.or_filters.append([field, "like", search])
 
+    # def add_display_details(self, result, discount_list, cart_items):
+    #     """Add price and availability details in result."""
+    #     for item in result:
+    #         product_info = get_product_info_for_website(item.item_code, skip_quotation_creation=True).get(
+    #             "product_info"
+    #         )
+
+    #         if product_info and product_info["price"]:
+    #             # update/mutate item and discount_list objects
+    #             self.get_price_discount_info(item, product_info["price"], discount_list)
+
+    #         if self.settings.show_stock_availability:
+    #             self.get_stock_availability(item)
+
+    #         item.in_cart = item.item_code in cart_items
+
+    #         item.wished = False
+    #         if frappe.db.exists(
+    #             "Wishlist Item", {"item_code": item.item_code, "parent": frappe.session.user}
+    #         ):
+    #             item.wished = True
+    #     return result, discount_list
+
+    ## Santhosh - 24/01/2026
     def add_display_details(self, result, discount_list, cart_items):
-        """Add price and availability details in result."""
-        for item in result:
-            product_info = get_product_info_for_website(item.item_code, skip_quotation_creation=True).get(
-                "product_info"
+    """Add price and availability details in result."""
+    for item in result:
+        product_info = get_product_info_for_website(item.item_code, skip_quotation_creation=True).get(
+            "product_info"
+        )
+
+        if product_info and product_info["price"]:
+            # update/mutate item and discount_list objects
+            self.get_price_discount_info(item, product_info["price"], discount_list)
+
+        if self.settings.show_stock_availability:
+            self.get_stock_availability(item)
+
+        # Check if item has variants
+        if item.has_variants == 1:
+            # Get all variant items
+            variant_items = frappe.get_all(
+                "Item",
+                filters={"variant_of": item.item_code, "disabled": 0},
+                pluck="name"
             )
 
-            if product_info and product_info["price"]:
-                # update/mutate item and discount_list objects
-                self.get_price_discount_info(item, product_info["price"], discount_list)
+            total_stock = 0
+            for v in variant_items:
+                stock = frappe.db.get_value("Bin", {"item_code": v}, "actual_qty") or 0
+                total_stock += stock
 
-            if self.settings.show_stock_availability:
-                self.get_stock_availability(item)
+            item.stock_qty = total_stock
+            item.in_stock = 1 if total_stock > 0 else 0
+        else:
+            # fallback: use normal stock availability logic
+            stock = frappe.db.get_value("Bin", {"item_code": item.item_code}, "actual_qty") or 0
+            item.stock_qty = stock
+            item.in_stock = 1 if stock > 0 else 0
 
-            item.in_cart = item.item_code in cart_items
+        # cart and wishlist flags
+        item.in_cart = item.item_code in cart_items
 
-            item.wished = False
-            if frappe.db.exists(
-                "Wishlist Item", {"item_code": item.item_code, "parent": frappe.session.user}
-            ):
-                item.wished = True
-        return result, discount_list
+        item.wished = False
+        if frappe.db.exists(
+            "Wishlist Item", {"item_code": item.item_code, "parent": frappe.session.user}
+        ):
+            item.wished = True
+
+    return result, discount_list
+
 
     def get_price_discount_info(self, item, price_object, discount_list):
         """Modify item object and add price details."""

@@ -436,7 +436,8 @@ def get_variant_details(item_code,attributes):
 		else:
 			frappe.response["message"] =  {
 				"success": "Failed",
-				"message": _("No variant found for the given attributes"),
+				# "message": _("No variant found for the given attributes"),
+				"message": _("Currently unavailable"),
 				"template_item": item_code,
 				"requested_attributes": attributes
 			}
