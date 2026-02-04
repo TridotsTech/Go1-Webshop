@@ -263,7 +263,7 @@ class ProductQuery:
 
 	## Santhosh - 24/01/2026
 	def add_display_details(self, result, discount_list, cart_items):
-	"""Add price and availability details in result."""
+		"""Add price and availability details in result."""
 		for item in result:
 			product_info = get_product_info_for_website(item.item_code, skip_quotation_creation=True).get(
 				"product_info"
